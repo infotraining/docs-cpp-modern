@@ -1,4 +1,10 @@
-format: jb-book
-root: index
-chapters:
-- file: tdd
+format: jb-article
+root: stdcpp17
+sections:
+- file: basic-features
+- file: class-features
+- file: move
+- file: lambda-expressions
+- file: templates
+- file: ctad
+- file: constexpr 
