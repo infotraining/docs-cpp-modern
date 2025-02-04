@@ -109,7 +109,7 @@ div.admonition {
 
 dt {
   font-weight: 700;
-  font-size: 1.2em !important;
+  font-size: 1em !important;
   background-color: var(--my-color-definition-background);
   border-bottom-color: var(--my-color-definition-border-bottom);
   border-bottom-style: solid;
