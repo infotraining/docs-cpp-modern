@@ -11,3 +11,4 @@ sections:
 - file: string-view
 - file: any
 - file: optional
+- file: variant
