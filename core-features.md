@@ -7,8 +7,32 @@ C++11 wprowadza kilka nowych fundamentalnych typów danych:
 - typ: `[unsigned|signed] long long [int]`
   - Gwarancja minimum 64 bitów
   - Literał: `LL`
+
+    ```cpp
+    long long int i = 123456789012345LL;
+    ```
+
 - typy dla znaków UTF16/UTF32: `char16_t`, `char32_t`
 - typ dla pustego wskaźnika `nullptr`: `nullptr_t`
+
+## Typy całkowite o znanym rozmiarze
+
+W C++11 wprowadzono aliasy na typy całkowite o znanym rozmiarze:
+
+- `int8_t`, `int16_t`, `int32_t`, `int64_t` - typy całkowite ze znakiem
+- `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t` - typy całkowite bez znaku
+- `intptr_t`, `uintptr_t` - typy całkowite dla wskaźników mogące przechować wskaźnik na `void`
+- `intmax_t`, `uintmax_t` - największe typy całkowite dostępne w danej architekturze
+
+```cpp
+#include <cstdint>
+
+int8_t i8 = 127;
+uint16_t ui16 = 65535;
+int32_t i32 = 2147483647;
+uint64_t ui64 = 18446744073709551615ULL;
+uintmax_t umax = 18446744073709551615ULL;
+```
 
 ## nullptr - uniwersalny pusty wskaźnik
 
@@ -29,10 +53,12 @@ Deklaracja pustych zmiennych wskaźnikowych od C++11 powinna wyglądać:
 
 ```c++
 int* ptr_1 = nullptr; 
+assert(ptr_1 == nullptr);
 
 // or
 
-int* ptr_1{}; // p1 is set to 0
+int* ptr_2{}; // p1 is set to 0
+assert(ptr_2 == nullptr);
 ```
 
 `nullptr` rozwiązuje problem z przeciążeniem funkcji przyjmujących jako argument wskaźnik lub typ całkowity:
@@ -47,11 +73,10 @@ foo(nullptr); // compile-time error
 
 void bar(int);
 void bar(void*);
-void bar(nullptr_t);
 
 bar(0); // calls bar(int)
 bar(NULL); // calls bar(int) if NULL is 0, ambiguous if NULL is 0L
-bar(nullptr); // calls bar(void*) or bar (nullptr_t) if provided
+bar(nullptr); // calls bar(void*)
 ```
 
 ## Raw String Literals
@@ -78,11 +103,11 @@ Aby mieć możliwość umieszczenia sekwencji `)"` w literale "raw string", nale
 - sekwencja przestankowa może mieć długość do 16 znaków i nie może zawierać białych znaków (spacji itp.).
 
 ```c++
-string str1 = R"raw(a\
+std::string str1 = R"raw(a\
 b\nc()"
 )raw";
 
-string str2 = "a\\\n    b\\nc()\"\n    ";
+std::string str2 = "a\\\n    b\\nc()\"\n    ";
 ```
 
 Literały "raw string" są szczególnie przydatne przy definiowaniu wyrażeń regularnych lub ścieżek w systemie Windows.
@@ -95,9 +120,9 @@ std::regex re1( R"!("operator\(\)"|"operator->")!" );  // "operator()"|"operator
 
 Od C++11 dozwolone są następujące literały znakowe:
 
-- **u8** - definiuje kodowanie UTF-8
-- **u** - definiuje literał ze znakami `char16_t`
-- **U** - definiuje literał ze znakami `char32_t`
+- `u8` - definiuje kodowanie UTF-8
+- `u` - definiuje literał ze znakami `char16_t`
+- `U` - definiuje literał ze znakami `char32_t`
 
 ```c++
 u"UTF-16 string literal"  // char16_t (UTF-16)
@@ -152,6 +177,35 @@ int main()
 }
 ```
 
+### std::underlying_type_t<Enum>
+
+Funkcja `std::underlying_type_t<Enum>` zwraca typ całkowity, na którym zdefiniowane jest wyliczenie.
+
+```c++
+enum Color : uint8_t { red, green, blue };
+
+std::underlying_type_t<Color> int_value = green; // int_value : uint8_t
+asssert(int_value == 1);
+```
+
+````{note}
+W C++23 wprowadzono funkcję `std::to_underlying`, która zwraca wartość wyliczenia w postaci typu całkowitego.
+
+```c++
+auto int_value = std::to_underlying(Color::green); // int_value : uint8_t
+```
+
+Jej implementacja jest bardzo prosta:
+
+```c++
+template <typename Enum>
+constexpr auto to_underlying(Enum e) noexcept
+{
+    return static_cast<std::underlying_type_t<Enum>>(e);
+}
+```
+````
+
 ## Wyliczenia silnie typizowane - Scoped Enumerations
 
 Dla wyliczeń silnie typizowanych (*scoped enums*):
@@ -164,11 +218,11 @@ Dla wyliczeń silnie typizowanych (*scoped enums*):
 - istnieje możliwość użycia deklaracji zapowiadającej (*forward declaration*). Gdy używany jest tylko typ nie ma potrzeby rekompilacji przy dodaniu nowej wartości dla wyliczenia.
 
 ```c++
-enum class Engine : char;  // forward declaration
+enum class Engine : uint8_t;  // forward declaration
 
 Engine e;
 
-enum class Engine : char { petrol, diesel, wankel };
+enum class Engine : uint8_t { petrol, diesel, wankel };
 
 e = Engine::petrol; // OK
 
@@ -180,18 +234,20 @@ e = static_cast<Engine>(1); // OK: e == Engine::diesel
 
 int index = Engine::wankel; // error
 
-underlying_type_t<Engine> index = 
+std::underlying_type_t<Engine> index = 
     static_cast<underlying_type_t<Engine>>(Engine::wankel);
 ```
 
 Zamiast `enum class` może być użyte `enum struct` - nie ma żadnej semantycznej różnicy między tymi formami.
 
-## Deklaracje typu z auto
+## Deklaracje zmiennych z auto
 
-Deklaracje zmiennych z użyciem słowa kluczowego `auto` umożliwiają automatyczną dedukcję typu zmiennej przez kompilator.
+Deklaracje zmiennych z użyciem słowa kluczowego `auto` umożliwiają automatyczną dedukcję typu zmiennej przez kompilator. Dedukcja typu odbywa się na podstawie inicjalizatora.
 
-- `auto` jest słowem kluczowym, które w C++11 otrzymało nowe znaczenie.
+```{note}
+- `auto` jest słowem kluczowym, które w C++11 otrzymało nowe znaczenie
 - w poprzednich standardach oznaczało zmienną automatyczną (tworzoną na stosie) - praktycznie nigdy nie było używane
+```
 
 ```c++
 auto i = 42; // i : int
@@ -200,6 +256,7 @@ auto f = 3.14f; // f : float
 
 std::set<std::string> spellcheck;
 auto it = spellcheck.begin(); // it : std::set<std::string>::iterator
+auto const_it = spellcheck.cbegin(); // const_it : std::set<std::string>::const_iterator
 ```
 
 Definiując zmienną z użyciem `auto` można dodawać modyfikatory `const`, `volatile` oraz stosować referencje lub wskaźniki:
@@ -262,19 +319,20 @@ Możemy wyróżnić trzy zasadnicze przypadki:
 
     ```c++
     int x = 42;
+    const int cx = 665;
     int& ref_x = x;
     const int& cref_x = x;
 
-    auto a1 = x; // a1 : int
-    auto a2 = ref_x; // a2 : int
-    auto a3 = cref_x; // a3 : int
-
+    auto a1 = x;      // a1 : int
+    auto a2 = cx      // a2 : int - const is stripped
+    auto a3 = ref_x;  // a3 : int - reference is stripped
+    auto a4 = cref_x; // a4 : int - reference and const are stripped
 
     int data[10];  
-    auto ad = data; // ad : int* - array decays to pointer
+    auto a5 = data;   // a5 : int* - array decays to pointer
 
     int foo();
-    auto af = foo; // af : int(*)() - function decays to pointer
+    auto a6 = foo;    // a6 : int(*)() - function decays to pointer
     ```
 
 2. Specyfikator typu jest referencją lub wskaźnikiem.
@@ -284,19 +342,20 @@ Możemy wyróżnić trzy zasadnicze przypadki:
 
     ```c++
     int x = 42;
+    const int cx = 665;
     int& ref_x = x;
     const int& cref_x = x;
 
-    auto& a1 = x; // a1 : int&
-    auto& a2 = ref_x; // a2 : int&
-    auto& a3 = cref_x; // a3 : const int&
-
+    auto& a1 = x;      // a1 : int&
+    auto& a2 = cx;     // a2 : const int&
+    auto& a3 = ref_x;  // a3 : int&
+    auto& a4 = cref_x; // a4 : const int&
 
     int data[10];  
-    auto& ad = data; // ad : int(&)[10]
+    auto& a5 = data;   // a5 : int(&)[10]
 
     int foo();
-    auto& af = foo; // af : int(&)()
+    auto& a6 = foo;    // a6 : int(&)()
     ```
 
 3. Specyfikator typu jest "uniwersalną referencją"
@@ -307,15 +366,19 @@ Możemy wyróżnić trzy zasadnicze przypadki:
     ```c++
     int x = 42;
 
-    auto&& ax1 = x; // ax1 : int&
+    auto&& ax1 = x;   // ax1 : int&
 
-    auto&& ax2 = 42; // ax2 : int&&
+    auto&& ax2 = 42;  // ax2 : int&&
     ```
 
-```{note}
+````{important}
 Jedyna różnica między mechanizmem dedukcji typu w szablonach a w `auto` dotyczy  
 dedukcji typu z listy inicjalizacyjnej zdefiniowanej za pomocą nawiasów klamrowych `{ 1, 2, 3 }`.
+
+```c++
+auto items = { 1, 2, 3 }; // items : std::initializer_list<int>
 ```
+````
 
 ### Składnia definicji zmiennych z auto
 
@@ -326,20 +389,25 @@ Dozwolone są dwie składnie inicjalizacji:
   - `auto var1(expr);`
 
   - lub `auto var1{expr};`
+
 - składnia kopiująca - `auto var2 = expr;`
-
-**Obie składnie mają takie samo znaczenie w kontekście dedukcji typów.**
-
-Jeśli typ dedukowany ma konstruktor kopiujący zdefiniowany jako `explicit`, to kompiluje się tylko składnia bezpośrednia.
 
 ```c++
 // direct initialization syntax
-int i= 10;
+int i = 10;
 auto a = i;
-auto b(i);
-auto c{i}; // since C++17
+auto b(i); // b : int
+auto c{i}; // c : int - since C++17
+auto d = {i}; // d : compiler error since C++17
+```
+
+**Obie składnie mają takie samo znaczenie w kontekście dedukcji typów.**
 
 
+````{note}
+Jeśli typ dedukowany ma konstruktor kopiujący zdefiniowany jako `explicit`, to kompiluje się tylko składnia bezpośrednia.
+
+```c++
 // copy initialization syntax
 struct Expl
 {
@@ -351,6 +419,7 @@ Expl e;
 auto a1 = e; // compile error
 auto a2{e}; // OK
 ```
+````
 
 ## Pętla for dla zakresów - range-based for
 
@@ -434,37 +503,111 @@ for(const auto& ptr : unique_gadgets) // ok
     ptr->do_something();
 ```
 
-### Iteracja po kontenerach zdefiniowanych przez użytkownika
+### Funkcje std::begin() i std::end()
 
-Funkcje wolne `begin()` oraz `end()` są częścią biblioteki standardowej C++11 i umożliwiają pętli *range-based for* iterację po tablicach natywnych (*C-array*). Można też utworzyć własne implementacje tych funkcji adaptując struktury danych zdefiniowane przez użytkownika.
+Funkcje wolne `std::begin()` oraz `std::end()` są częścią biblioteki standardowej C++11 i umożliwiają między innymi pętli *range-based for* iterację po tablicach natywnych (*C-array*). 
+
+Są zaprojektowane jako adaptery, które umożliwią iterację po kontenerach, które nie posiadają metod `begin()` i `end()`.
+
+W bibliotece standardowej C++ są zdefiniowane dla:
+  
+  * kontenerów standardowych
+
+    ```c++
+    namespace std
+    {
+        template <typename Container>
+        auto begin(Container& c) -> decltype(c.begin())
+        {
+            return c.begin();
+        }
+
+        template <typename Container>
+        auto end(Container& c) -> decltype(c.end())
+        {
+            return c.end();
+        }
+    }
+    ```
+
+  * tablic natywnych
+
+    ```c++
+    template <typename T, size_t N>
+    T* begin(T (&array)[N])
+    {
+        return array;
+    }
+
+    template <typename T, size_t N>
+    T* end(T (&array)[N])
+    {
+        return array + N;
+    }
+    ```
+
+Możliwe jest również zdefiniowanie własnych funkcji `begin()` i `end()` dla własnych kontenerów, które nie posiadają metod `begin()` i `end()`.
+
+````{tip}
+Pisząc kod generyczny dla kontenerów warto zawsze używać `std::begin()` i `std::end()`.
 
 ```c++
-class MyContainer
+template <typename TContainer, typename TValue>
+auto find_value(TContainer& cont, const TValue& value)
 {
-    //...
+    using std::begin;
+    using std::end;
+    auto it = std::find(begin(cont), end(cont), value);
+    return it;
+}
+```
+````
 
-public:
-    friend std::list<int>::iterator begin(MyContainer& cont);
-    friend std::list<int>::iterator end(MyContainer& cont);
+### Iteracja po kontenerach zdefiniowanych przez użytkownika
+
+Iteracja po kontenerach zdefiniowanych przez użytkownika wymaga zdefiniowania odpowiednich funkcji składowych `begin()` i `end()`.
+
+```c++
+struct SomeContainer
+{
+    int data[5] = { 1, 2, 3, 4, 5 };
+
+    int* begin() { return data; }
+    int* end() { return data + 5; }
+
+    const int* begin() const { return data; }
+    const int* end() const { return data + 5; }
 };
 
-std::list<int>::iterator begin(MyContainer& cont)
-{
-    return cont.values_.begin();
-}
+SomeContainer container;
 
-std::list<int>::iterator end(MyContainer& cont)
-{
-    return cont.values_.end();
-}
-
-
-// ...
-
-MyContainer cont;
-
-for(const auto& item : cont)
+// we can iterate over the container
+for(const auto& item : container)
     std::cout << item << "\n";
+
+int* pos_of_3 = find_value(container, 3);
+assert(*pos_of_3 == 3);
+```
+
+Można też utworzyć własne implementacje funkcji `begin()` i `end()` adaptując struktury danych, które nie posiadają tych metod.
+
+```c++
+struct OtherContainer
+{
+    int data[5] = { 1, 2, 3, 4, 5 };
+};
+
+int* begin(OtherContainer& container) { return container.data; }
+int* end(OtherContainer& container) { return container.data + 5; }
+
+OtherContainer container;
+
+// we can iterate over the container
+for(const auto& item : container)
+    std::cout << item << "\n";
+
+int* pos_of_3 = find_value(container, 3);
+assert(*pos_of_3 == 3);
 ```
 
 ## Składnia jednolitej inicjalizacji
