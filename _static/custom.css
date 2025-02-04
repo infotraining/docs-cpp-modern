@@ -27,12 +27,12 @@ p {
 
 ol li > p + ul.simple
 {
-  margin-top: 0.4rem !important;
+  /* margin-top: 0.4rem !important; */
 }
 
 p + ul.simple
 {
-  margin-top: -1rem !important;
+  /* margin-top: -1rem !important; */
 }
 
 img {

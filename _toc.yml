@@ -8,4 +8,5 @@ sections:
 - file: templates
 - file: ctad
 - file: constexpr
+- file: string-view
 - file: any
