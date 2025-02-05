@@ -7,8 +7,8 @@
   - czas życia danych (bufora znaków) nie jest kontrolowany przez obiekt typu `string_view`
 
   ```{code-block} cpp
-  std::string_view good("text literal"); // OK - internal pointer points to static array
-  std::string_view bad("string literal"s); // BAD - internal pointer is a dangling pointer
+  string_view good("text literal"); // OK - internal pointer points to static array
+  string_view bad("string literal"s); // BAD - internal pointer is a dangling pointer
   ```
 
   - brak wsparcia dla alokatorów - nie są potrzebne
@@ -50,7 +50,7 @@
   - `string::data` nie może zwrócić `nullptr`
 
   ```{code-block} cpp
-  std::string_view txt;
+  string_view txt;
 
   assert(txt.data() == nullptr);
   assert(txt.size() == 0);
@@ -61,7 +61,7 @@
   ```{code-block} cpp
   char txt[3] = { 't', 'x', 't' };
 
-  std::string_view txt_v(txt, std::size(txt)); // this view is not null terminated
+  string_view txt_v(txt, sizeof(txt)); // this view is not null terminated
   ```
 
 ```{warning}
@@ -83,8 +83,8 @@ Dla `string_view` zawsze należy sprawdzić rozmiar operacją `size()` zanim uż
 * Obiekty `string_view` przekazywane jako argumenty wywołania funkcji powinny być przekazywane przez wartość.
 
 ```{code-block} cpp
-void foo_s(const std::string& s);
-void foo_sv(std::string_view sv);
+void foo_s(const string& s);
+void foo_sv(string_view sv);
 
 foo_s("text"); // computes length, allocates memory, copies characters
 foo_sv("text"); // computes only length
@@ -104,7 +104,7 @@ foo_sv("text"); // computes only length
   - zwrócenie `string_view` może być niebezpieczne - należy pamiętać o tym, że `string_view` jest **non-owning view**
 
   ```{code-block} cpp
-  std::string_view start_from_word(std::string_view text, std::string_view word)
+  string_view start_from_word(string_view text, string_view word)
   {
         return text.substr(text.find(word));
   }
@@ -124,9 +124,9 @@ foo_sv("text"); // computes only length
 * Dostarczanie obydwu wersji funkcji jako przeciążeń może powodować dwuznaczności:
 
   ```{code-block} cpp
-  void foo(const std::string& s);
+  void foo(const string& s);
 
-  void foo(std::string_view sv);
+  void foo(string_view sv);
 
   foo("ambigous"); // ERROR - ambigous call
   ```

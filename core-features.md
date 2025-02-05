@@ -592,15 +592,18 @@ assert(*pos_of_3 == 3);
 Można też utworzyć własne implementacje funkcji `begin()` i `end()` adaptując struktury danych, które nie posiadają tych metod.
 
 ```c++
-struct OtherContainer
+namespace Custom
 {
-    int data[5] = { 1, 2, 3, 4, 5 };
-};
+    struct OtherContainer
+    {
+        int data[5] = { 1, 2, 3, 4, 5 };
+    };
 
-int* begin(OtherContainer& container) { return container.data; }
-int* end(OtherContainer& container) { return container.data + 5; }
+    int* begin(OtherContainer& container) { return container.data; }
+    int* end(OtherContainer& container) { return container.data + 5; }
+}
 
-OtherContainer container;
+Custom::OtherContainer container;
 
 // we can iterate over the container
 for(const auto& item : container)
@@ -627,10 +630,10 @@ int var3 = int(); // var3 becomes 0 - from C++98
 
 int var4(); // function declaration!!!
 
-int values[] = { 1, 2, 3, 4 }; // brace initialization
+int values[] = { 1, 2, 3, 4 }; // brace initialization of arrays
 
-struct Point { int x, y; };
-const Point pt1 = { 10, 20 }; // brace initialization
+struct Point { int x, y; };   // aggregate
+const Point pt1 = { 10, 20 }; // brace initialization for aggregates
 
 std::complex<double> c(4.0, 2.0); // initialization of classes
 
@@ -667,7 +670,7 @@ const std::vector<std::string> cities = { "Wroclaw", "Cracow" };
 std::map<int, std::string> = { {1, "one"}, {2, "two"} };
 ```
 
-Można używać składni z klamrami do inicjalizacji pól na liście inicjalizacyjnej konstruktora oraz do inicjalizacji tablic dynamicznych.
+Składni z klamrami można używać do inicjalizacji pól na liście inicjalizacyjnej konstruktora oraz do inicjalizacji tablic dynamicznych.
 
 ```c++
 class Data
@@ -675,7 +678,7 @@ class Data
     static inline int id_gen_{0};
 
 public:
-    Data() : id_{++id_gen_}, data_{ 1, 2, 3 }, names_{"Jan", "Adam", "Ewa"} {}
+    Data() : id_{++id_gen_}, data_{1, 2, 3}, names_{"Jan", "Adam", "Ewa"} {}
 private:
     const int id_;
     int data_[3];
@@ -708,12 +711,12 @@ public:
     Vector2D(int x, int y) : x_{x}, y_{y}
     {}
 private:
-    int x_, int y_;
+    int x_, y_;
 };
 
 Vector2D vec1 { 10, 20 };
 Vector2D vec2 = { 40, 20 };
-Vector2D vec3 { 56, 33, 22 }; // error! too many args
+Vector2D vec3 { 56, 33, 22 }; // Error! too many args
 
 Vector2D versor_x()
 {
@@ -763,7 +766,7 @@ v = { 1, 2, 3, 5 };
   - `end()` - wskaźnik (`const T*`) wskazujący koniec zakresu
 - Elementy listy inicjalizującej są niezmienne - *immutable*
 
-Jako argument funkcji `initializer_list` powinien być przesyłany przez wartość:
+Jako argument funkcji `std::initializer_list` powinien być przesyłany przez wartość:
 
 ```c++
 #include <initializer_list>
@@ -785,23 +788,50 @@ class Container
 {
 public:
     Container(std::initializer_list<T> items); //initializer-list constructor
-    //...
+    ~Container();
+    
+    size_t size() const { return size_; }
+    T& operator[](size_t index) { return items_[index]; }
+    const T& operator[](size_t index) const { return items_[index]; }
+
+    using iterator = T*;
+    using const_iterator = const T*;
+
+    iterator begin() { return items_; }
+    iterator end() { return items_ + size_; }
+    const_iterator begin() const { return items_; }
+    const_iterator end() const { return items_ + size_; }
+
 private:
     size_t size_;
     T* items_;
 };
 
 template<typename T>
-Container::Container(std::initializer_list<T> items)
-    : size_{ items.size() }  //set container's size
+Container<T>::Container(std::initializer_list<T> items) : 
+    size_{items.size()}, 
+    items_{static_cast<T*>(std::aligned_alloc(alignof(T), size_ * sizeof(T)))}
 {
-    reserve(size_);   // get the right amount of space
-    uninitialized_copy(items.begin(), items.end(), items_);
-        // initialize elements in items_[0:items.size())
+    try
+    {
+        std::uninitialized_copy(items.begin(), items.end(), items_);
+    }
+    catch(...)
+    {
+        std::free(items_);
+        throw;
+    }
+}
+y
+template <typename T>
+Container<T>::~Container()
+{
+    std::cout << "Destroying container...\n";
+    std::destroy(items_, items_ + size_);
+    std::free(items_);
 }
 
-// ...
-
+// usage of container
 Container<int> c1 { 1, 2, 3 }; // OK
 Container<double> c2 = { 1.2, 3.14, 5.0 }; // OK
 Container<int> c3 { 1, 2, 3.5 }; // error - template parameter T can't be deduced
@@ -863,25 +893,27 @@ foo({ 1, 2, 3, 4, 5 }); // error - deduction failed
 
 ## Słowo kluczowe - decltype
 
-Słowo kluczowe `decltype` umożliwia kompilatorowi określenie zadeklarowanego typu dla podanego jako argument obiektu lub wyrażenia.
+Słowo kluczowe `decltype` umożliwia kompilatorowi określenie typu dla podanego jako argument obiektu lub wyrażenia.
 
 ```c++
-std::map<std::string, float> coll;
+std::map<std::string, double> math_dict = { {"pi", 3.14}, {"e", 2.71} };
 
-decltype(coll) coll2; // coll2 has type of coll
-using EntryT = decltype(coll)::value_type; // EntryT is std::pair<const std::string, float>
+decltype(math_dict) other_dict; // other_dict has the same type as math_dict
+
+using TEntry = decltype(math_dict)::value_type; // TEntry is std::pair<const std::string, double>
+static_assert(std::is_same_v<TEntry, std::pair<const std::string, double>>);
 ```
 
 Jeżeli podajemy jako argument wywołania `decltype()` wyrażenie, to nie jest ono ewaluowane.
 
 ```c++
-map<int, std::string> coll;
+std::map<int, std::string> dict_numbers;
 
-cout << "sizeof: " << sizeof(decltype(coll[0])) << "\n"; // prints 8
+std::cout << "sizeof: " << sizeof(decltype(dict_numbers[0])) << "\n"; // prints 8
 
-static_assert(std::is_same_v<decltype(coll[0]), string&>)
+static_assert(std::is_same_v<decltype(dict_numbers[0]), std::string&>);
 
-assert(coll.size() == 0);
+assert(dict_numbers.size() == 0);
 ```
 
 ## Nowa składnia deklaracji funkcji
@@ -960,21 +992,24 @@ Mechanizm `decltype` może być również używany do deklaracji zmiennych:
 ```c++
 int i;
 int&& f();
-auto x3a = i;              // decltype(x3a) is int
-decltype(i) x3d = i;       // decltype(x3d) is int
-auto x4a = (i);            // decltype(x4a) is int
-decltype((i)) x4d = (i);   // decltype(x4d) is int&
-auto x5a = f();            // decltype(x5a) is int
-decltype(f()) x5d = f();   // decltype(x5d) is int&&
 
-Gadget g;
+auto a1 = i;              // a1: int
+decltype(i) d1 = i;       // d1: int
+auto a2 = (i);            // a2: int
+decltype((i)) d2 = (i);   // d2: int&
+auto a3 = f();            // a3: int
+decltype(f()) d3 = f();   // d3: int&&
+```
 
-const Gadget& cg = g;
+```c++
+struct Gadget { uint32_t id; };
 
-auto my_auto1 = cg;             // auto type deduction: my_auto1's type is Gadget
+Gadget g{42};
+const Gadget& cref_g = g;
 
-decltype(auto) my_auto2 = cg;   // decltype type deduction: 
-                                // my_auto2's type is const Widget&
+auto g1 = cref_g; // auto type deduction: g1's type is Gadget
+
+decltype(auto) g2 = cref_g;  // decltype type deduction: g2's type is const Widget&
 ```
 
 ## Structured bindings (C++17)
@@ -990,9 +1025,13 @@ Do realizacji wiązania mogą być użyte:
 1. Wszystkie elementy tablicy
 
     ```c++
-    auto foo() -> int(&)[2]
+    auto& get_coord() 
+    {
+        static int coords[2] = {1, 2};
+        return coords;
+    }
 
-    auto [first, second] = foo();
+    auto [x, y] = get_coord();
     ```
 
 2. Wszystkie elementy krotki lub obiektu kompatybilnego typu (np. std::pair, std::array)
@@ -1000,30 +1039,30 @@ Do realizacji wiązania mogą być użyte:
     - std::tuple
 
         ```c++
-        tuple<int, std::string, double> tpl(1, "text"s, 2.3);
+        std::tuple<std::string, std::string, int> tpl("John", "Doe", 42);
 
-        auto [first, second, third] = tpl;
+        auto [first_name, last_name, age] = tpl;
 
-        std::cout << first << " " << second << " " << third << '\n';
+        std::cout << first_name << " " << last_name << " " << age << '\n';
         ```
 
     - std::pair
 
         ```c++
-        set<int> unique_numbers;
+        std::set<int> unique_numbers = {1, 2, 3, 4, 5};
 
-        if (auto [where, is_inserted] = unique_numbers.insert(1), is_inserted)
-            cout << (*where) << " has been inserted" << endl;;        
+        auto [pos, was_inserted] = unique_numbers.insert(42);
+        assert(was_inserted == true);        
         ```
 
     - std::array
 
         ```c++
-        std::array<int, 4> get_data();
+        std::array<int, 3> get_coord_3D();
 
-        auto [i, j, k, l] = get_data();
+        auto [x, y, z] = get_coord_3D();
 
-        auto [i, j, k] = get_data(); // ERROR - number of items doesn't fit
+        auto [x, y] = get_coord_3D(); // ERROR - number of items doesn't fit
         ```
 
     Takie wiązanie jest realizowane tylko jeśli `std::tuple_size<E>` jest typem kompletnym (`E` jest typem krotki lub kompatybilnego obiektu)
@@ -1034,20 +1073,20 @@ Do realizacji wiązania mogą być użyte:
     - anonimowe unie nie są dozwolone
 
     ```c++
-    struct Data
+    struct Person
     {
-        int n;
-        char c;
-        double d;
+        std::string fn;
+        std::string ln;
+        int a;
     };
 
     //...
 
-    Data data1 { 1, 'A', 3.14 };
+    Person p{"John", "Doe", 42};
 
-    auto [member1, member2, member3] = data1;
+    auto [first_name, last_name, age] = data1;
 
-    std::cout << member1 << " " << member2 << " " << member3 << '\n';
+    std::cout << first_name << " " << last_name << " " << age << '\n';
     ```
 
 Jeśli liczba zmiennych umieszczonych w nawiasach `[]` nie zgadza się z liczbą składowych obiektu zwróconego, kompilator zgłasza błąd.
@@ -1061,21 +1100,21 @@ Kod wiązania:
 ```c++
 struct Timestamp
 {
-    int hours, minutes, seconds;
+    int h, m, s;
 };
 
 Timestamp timestamp{12, 0, 30};
 
-auto [h, m, s] = timestamp;
+auto [hours, minutes, seconds] = timestamp;
 ```
 
 Odpowiada koncepcyjnie:
 
 ```c++
 auto e = timestamp;
-auto& h = e.hours;
-auto& m = e.minutes;
-auto& s = e.seconds;
+auto& hours = e.h;
+auto& minutes = e.m;
+auto& seconds = e.s;
 ```
 
 Obiekt `e` istnieje tak długo jak istnieją zdefiniowane do niego wiązania.
@@ -1101,18 +1140,18 @@ alignas(16) auto[i, d] = foo(); // i and d refers to implicit entity, which is 1
 1. *Structured bindings* umożliwiają wygodną iterację po mapach w C++17:
 
     ```c++
-    std::map<std::string, double> data = { { "pi", 3.14, "e }, { "e", 2.71 } };
-
-    for (const auto& [key, value] : data)
+    std::map<std::string, double> math_dict = { { "pi", 3.14 }, { "e", 2.71 } };
+    
+    for(const auto& [key, value] : math_dict) 
         std::cout << key << " - " << value << "\n";
     ```
 
-2. Inicjalizacja wielu wartości na raz w instrukcji `for`:
+2. Inicjalizacja wielu wartości różnych typów na raz w instrukcji `for`:
 
     ```c++
     std::vector vec = { 1, 2, 3 };
 
-    for (auto [i, it] = tuple{ 0, begin(vec) } ; i < size(vec); ++i, ++it)
+    for (auto [i, it] = std::tuple{ 0, begin(vec) } ; i < size(vec); ++i, ++it)
     {
         std::cout << i << " - " << *it << "\n";
     }
@@ -1214,12 +1253,14 @@ if (std::lock_guard lk(mtx); !q.empty())
 Instrukcja `if` z sekcją inicjującą może być połączona z przypisaniem wielu wartości do zmiennych za pomocą *structured bindings*:
 
 ```c++
-map<int, string> dictionary;
+std::map<int, std::string> dictionary;
 
-if (auto [pos, is_inserted] = dictionary.insert(std::pair(42, "fourty two"s); !is_inserted)
+if (auto [pos, was_inserted] = dictionary.emplace(42, "fourty two"s); was_inserted)
 {
-    const auto& [key, value] = *pos;
-
-    cout << key << " is already in a dictionary" << endl;
+    std::cout << "Inserted new value: " << pos->first << "\n";
+}
+else
+{
+    std::cout << "Value already exists: " << pos->first << "\n";
 }
 ```
