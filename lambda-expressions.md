@@ -19,7 +19,7 @@ Minimalne wyrażenie lambda:
 Lambdy mogą przyjmować parametry, a także zwracać wartość:
 
 ```c++
-auto l = [] (int x, int y) { return x + y; };
+auto l = [](int x, int y) { return x + y; };
 
 auto result = l(2, 3); // result == 5
 ```
@@ -120,7 +120,7 @@ Do przechwytywania służy para nawiasów kwadratowych `[]`, w których możemy 
 
 ## Modyfikowalne obiekty domknięć - mutable
 
-Domyślnie obiekty domknięć są *immutable*. Domyślnie przechwycone przez wyrażenie lambda wartości oraz operator `()` są wewnątrz klasy domknięcia zadeklarowane jako składowe `const`.
+Domyślnie obiekty domknięć są *immutable*. Domyślnie przechwycone przez wyrażenie lambda wartości oraz `operator()` są wewnątrz klasy domknięcia zadeklarowane jako składowe `const`.
 
 Jeśli lambda zostanie oznaczona jako `mutable`, to może ona modyfikować przechwycone przez wartość zmienne. Tym samym można modyfikować stan obiektu domknięcia.
 
