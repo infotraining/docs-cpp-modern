@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; Book title</title>
+    <title>Index &#8212; Modern C++</title>
   
   
   
@@ -151,8 +151,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Book title - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Book title - Home"/>`);</script>
+    <img src="_static/logo.svg" class="logo__image only-light" alt="Modern C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Modern C++ - Home"/>`);</script>
   
   
 </a></div>
@@ -173,12 +173,34 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="index.html">
-                    Szkolenie
+                    Nowoczesny C++
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Core</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cpp-standards.html">Standardy ISO C++</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="core-features.html">Nowości w rdzeniu języka</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="constexpr-if.html">constexpr if (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="class-features.html">Klasy w C++11/17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="move.html">Semantyka przenoszenia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambda-expressions.html">Wyrażenia lambda</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="templates.html">Szablony</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ctad.html">Dedukcja argumentów dla szablonów klas - CTAD (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="constexpr.html">Programowanie na etapie kompilacji - constexpr</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Standard Library</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="smart-pointers.html">Inteligentne wskaźniki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuples.html">Krotki w C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string-view.html">Klasa std::string_view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="any.html">Klasa std::any</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional.html">Klasa std::optional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variant.html">Klasa std::variant</a></li>
 </ul>
 
     </div>
@@ -220,53 +242,6 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/infotraining/docs-template" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/infotraining/docs-template/issues/new?title=Issue%20on%20page%20%2Fgenindex.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
 
 
 
@@ -332,8 +307,96 @@ document.write(`
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  
 </div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv43anyRK3any">any (C++ function)</a>, <a href="any.html#_CPPv43anyRR3any">[1]</a>, <a href="any.html#_CPPv43anyv">[2]</a>, <a href="any.html#_CPPv4I0E3anyRR9ValueType">[3]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv4I0E8any_cast9ValueTypeRK3any">any_cast (C++ function)</a>, <a href="any.html#_CPPv4I0E8any_castP9ValueTypeP3any">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv4I0DpE7emplaceRNSt7decay_tI9ValueTypeEEDpRR4Args">emplace (C++ function)</a>, <a href="variant.html#_CPPv4I0DpE7emplaceR1TDpRR4Args">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv4NK9has_valueEv">has_value (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="variant.html#_CPPv4I0E17holds_alternativebRKNSt7variantE">holds_alternative (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv4I0EaSR3anyRR9ValueType">operator= (C++ function)</a>, <a href="any.html#_CPPv4aSRK3any">[1]</a>, <a href="any.html#_CPPv4aSRR3any">[2]</a>, <a href="variant.html#_CPPv4I0EaSR7variantRR1T">[3]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv45resetv">reset (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="variant.html#_CPPv4NKSt7variant5indexEv">std::variant::index (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv44swapR3any">swap (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="any.html#_CPPv4NK4typeEv">type (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="optional.html#_CPPv45valuev">value (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="optional.html#_CPPv4I0E8value_or1TRR1U">value_or (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 
 
                 </article>

@@ -1,3 +1,10 @@
-# Szkolenie
+---
+title: Nowoczesne programowanie w C++
+---
 
-Materiały do szkolenia [Test-Driven Development w C++](https://www.infotraining.pl/szkolenie/c-plus-plus/tdd)
+![Modern C++ Programming](./images/modern-cpp-cover.png)
+
+# Nowoczesny C++
+
+```{tableofcontents}
+```

@@ -1,0 +1,1073 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Szablony &#8212; Modern C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'templates';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dedukcja argumentów dla szablonów klas - CTAD (C++17)" href="ctad.html" />
+    <link rel="prev" title="Wyrażenia lambda" href="lambda-expressions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="Modern C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Modern C++ - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Nowoczesny C++
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Core</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cpp-standards.html">Standardy ISO C++</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="core-features.html">Nowości w rdzeniu języka</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="constexpr-if.html">constexpr if (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="class-features.html">Klasy w C++11/17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="move.html">Semantyka przenoszenia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambda-expressions.html">Wyrażenia lambda</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Szablony</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ctad.html">Dedukcja argumentów dla szablonów klas - CTAD (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="constexpr.html">Programowanie na etapie kompilacji - constexpr</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Standard Library</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="smart-pointers.html">Inteligentne wskaźniki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuples.html">Krotki w C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string-view.html">Klasa std::string_view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="any.html">Klasa std::any</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional.html">Klasa std::optional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variant.html">Klasa std::variant</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/templates.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Szablony</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy">Aliasy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy-typow">Aliasy typów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy-szablonow">Aliasy szablonów</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy-i-typename">Aliasy i typename</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#szablony-zmiennych">Szablony zmiennych</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zmienne-szablonowe-a-jednostki-translacji">Zmienne szablonowe a jednostki translacji</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-templates">Variadic templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-pack">Parameter pack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rozpakowanie-paczki-parametrow">Rozpakowanie paczki parametrów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idiom-head-tail">Idiom Head/Tail</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-sizeof">Operator sizeof</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forwardowanie-wywolan-funkcji">Forwardowanie wywołań funkcji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-paczek-parametrow">Ograniczenia paczek parametrów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nietypowe-paczki-parametrow">“Nietypowe” paczki parametrów</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fold-expressions-c-17">Fold expressions (C++17)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wyrazenia-fold-w-jezykach-funkcjonalnych">Wyrażenia <em>fold</em> w językach funkcjonalnych</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#redukcja-w-c-98-std-accumulate">Redukcja w C++98 - std::accumulate</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wyrazenia-fold">Wyrażenia fold</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skladnia-wyrazen-fold">Składnia wyrażeń fold</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#elementy-identycznosciowe">Elementy identycznościowe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklady-zastosowan-wyrazen-fold">Przykłady zastosowań wyrażeń fold</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#all-true">all_true</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#print">print()</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#invoke-call-foreach">invoke() &amp; call_foreach()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="szablony">
+<h1>Szablony<a class="headerlink" href="#szablony" title="Link to this heading">#</a></h1>
+<section id="aliasy">
+<h2>Aliasy<a class="headerlink" href="#aliasy" title="Link to this heading">#</a></h2>
+<section id="aliasy-typow">
+<h3>Aliasy typów<a class="headerlink" href="#aliasy-typow" title="Link to this heading">#</a></h3>
+<p>W C++11 deklaracja <code class="docutils literal notranslate"><span class="pre">using</span></code> może zostać użyta do tworzenia bardziej czytelnych aliasów dla typów - zamiennik dla <code class="docutils literal notranslate"><span class="pre">typedef</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">CarID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">Func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">);</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">DictionaryDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="aliasy-szablonow">
+<h3>Aliasy szablonów<a class="headerlink" href="#aliasy-szablonow" title="Link to this heading">#</a></h3>
+<p>Aliasy typów mogą być parametryzowane typem. Można je wykorzystać do tworzenia częściowo związanych typów szablonowych.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">StrKeyMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="n">StrKeyMap</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">my_map</span><span class="p">;</span><span class="w"> </span><span class="c1">// std::map&lt;std::string, int&gt;</span>
+</pre></div>
+</div>
+<p>Parametrem aliasu typu szablonowego może być także stała znana w czasie kompilacji:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">StringArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="n">StringArray</span><span class="o">&lt;</span><span class="mi">255</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Aliasy szablonów nie mogą być specjalizowane.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">MyAllocList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">MyAllocator</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">MyAllocList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">MyAllocator</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// error</span>
+</pre></div>
+</div>
+<p>Przykład utworzenia aliasu dla szablonu klasy <em>smart pointer’a</em>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Stream</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">StreamDeleter</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="n">Stream</span><span class="o">*</span><span class="w"> </span><span class="n">os</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">os</span><span class="o">-&gt;</span><span class="n">close</span><span class="p">();</span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">os</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Stream</span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">StreamPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Stream</span><span class="p">,</span><span class="w"> </span><span class="n">StreamDeleter</span><span class="o">&lt;</span><span class="n">Stream</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">StreamPtr</span><span class="o">&lt;</span><span class="n">ofstream</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p_log</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ofstream</span><span class="p">(</span><span class="s">&quot;log.log&quot;</span><span class="p">));</span>
+<span class="w">    </span><span class="o">*</span><span class="n">p_log</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Log statement&quot;</span><span class="p">;</span><span class="w">        </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="aliasy-i-typename">
+<h4>Aliasy i typename<a class="headerlink" href="#aliasy-i-typename" title="Link to this heading">#</a></h4>
+<p>Od C++14 biblioteka standardowa używa aliasów dla wszystkich cech typów, które zwracają typ.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">is_void_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">is_void</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>W rezultacie kod odwołujący się do cechy:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typename</span><span class="w"> </span><span class="nc">is_void</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span>
+</pre></div>
+</div>
+<p>możemy uprościć do:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">is_void_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="szablony-zmiennych">
+<h2>Szablony zmiennych<a class="headerlink" href="#szablony-zmiennych" title="Link to this heading">#</a></h2>
+<p>W C++14 zmienne mogą być parametryzowane przy pomocy typu. Takie zmienne nazywamy <strong>zmiennymi szablonowymi</strong> (<em>variable templates</em>).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">pi</span><span class="p">{</span><span class="mf">3.1415926535897932385</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>Aby użyć zmiennej szablonowej, należy podać jej typ:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Parametrami zmiennych szablonowych mogą być stałe znane na etapie kompilacji:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr</span><span class="p">{};</span><span class="w">    </span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">arr</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"> </span><span class="c1">// sets first element of global arr</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">arr</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w">   </span>
+<span class="w">        </span><span class="c1">// uses values set in arr</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">arr</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w">    </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="zmienne-szablonowe-a-jednostki-translacji">
+<h3>Zmienne szablonowe a jednostki translacji<a class="headerlink" href="#zmienne-szablonowe-a-jednostki-translacji" title="Link to this heading">#</a></h3>
+<p>Deklaracja zmiennych szablonowych może być używana w innych jednostkach translacji.</p>
+<ul>
+<li><p>plik - <code class="docutils literal notranslate"><span class="pre">header.hpp</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">val</span><span class="p">{};</span><span class="w">     </span><span class="c1">// zero initialized value</span>
+</pre></div>
+</div>
+</li>
+<li><p>plik - “unit1.cpp”</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;header.hpp&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">val</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="n">print</span><span class="p">();</span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</li>
+<li><p>plik - “unit2.cpp”</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">val</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK: prints 42</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="variadic-templates">
+<h2>Variadic templates<a class="headerlink" href="#variadic-templates" title="Link to this heading">#</a></h2>
+<p>W C++11 szablony mogą akceptować dowolną ilość (również zero) parametrów. Jest to możliwe dzięki użyciu specjalnego grupowego parametru szablonu tzw. <em>parameter pack</em>, który reprezentuje wiele lub zero parametrów szablonu.</p>
+<section id="parameter-pack">
+<h3>Parameter pack<a class="headerlink" href="#parameter-pack" title="Link to this heading">#</a></h3>
+<p><em>Parameter pack</em> może być</p>
+<ul>
+<li><p>grupą parametrów szablonu</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Ts</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// template parameter pack</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">tuple</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">};</span>
+
+<span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;&gt;</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 3 arguments: int, double, string&amp;</span>
+<span class="n">tuple</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">empty_tuple</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0 arguments</span>
+</pre></div>
+</div>
+</li>
+<li><p>grupą argumentów funkcji szablonowej</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_shared</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">params</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">sptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Gadget</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="c1">// Args as template param: int</span>
+<span class="w">                                     </span><span class="c1">// Args as function param: int&amp;&amp;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="rozpakowanie-paczki-parametrow">
+<h3>Rozpakowanie paczki parametrów<a class="headerlink" href="#rozpakowanie-paczki-parametrow" title="Link to this heading">#</a></h3>
+<p>Podstawową operacją wykonywaną na grupie parametrów szablonu jest rozpakowanie jej za pomocą operatora <code class="docutils literal notranslate"><span class="pre">...</span></code> (tzw. <em>pack expansion</em>).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">typaname</span><span class="p">...</span><span class="w"> </span><span class="n">Ts</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// template  parameter pack</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">  </span><span class="c1">// pack expansion</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Rozpakowanie paczki parametrów (<em>pack expansion</em>) może zostać zrealizowane przy pomocy wzorca zakończonego elipsą <code class="docutils literal notranslate"><span class="pre">...</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">typaname</span><span class="p">...</span><span class="w"> </span><span class="n">Ts</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// template  parameter pack</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">XPtrs</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="p">...</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptrs</span><span class="p">;</span><span class="w">  </span><span class="c1">// pack expansion</span>
+<span class="p">};</span>
+
+<span class="n">XPtrs</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptrs</span><span class="p">;</span><span class="w"> </span><span class="c1">// contains tuple&lt;int const*, string const*, double const*&gt;</span>
+</pre></div>
+</div>
+<p>Najczęstszym przypadkiem użycia wzorca przy rozpakowaniu paczki parametrów jest implementacja <strong>perfect forwarding’u</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">make_call</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">params</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">callable</span><span class="p">(</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">params</span><span class="p">)...);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="idiom-head-tail">
+<h3>Idiom Head/Tail<a class="headerlink" href="#idiom-head-tail" title="Link to this heading">#</a></h3>
+<p>Praktyczne użycie <strong>variadic templates</strong> wykorzystuje często idiom <strong>Head/Tail</strong> (znany również <strong>First/Rest</strong>).</p>
+<p>Idiom ten polega na zdefiniowaniu wersji szablonu akceptującego dwa parametry: - pierwszego <code class="docutils literal notranslate"><span class="pre">Head</span></code> - drugiego <code class="docutils literal notranslate"><span class="pre">Tail</span></code> w postaci paczki parametrów</p>
+<p>W implementacji wykorzystany jest parametr (lub argument) typu <code class="docutils literal notranslate"><span class="pre">Head</span></code>, po czym rekursywnie wywołana jest implementacja dla rozpakowanej paczki parametrów typu <code class="docutils literal notranslate"><span class="pre">Tail</span></code>.</p>
+<p>Dla szablonów klas idiom wykorzystuje specjalizację częściową i szczegółową (do przerwania rekurencji):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Types</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Count</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Head</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Tail</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Count</span><span class="o">&lt;</span><span class="n">Head</span><span class="p">,</span><span class="w"> </span><span class="n">Tail</span><span class="p">...</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Count</span><span class="o">&lt;</span><span class="n">Tail</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// expansion pack</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Count</span><span class="o">&lt;&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//...</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">Count</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;must be 3&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>W przypadku szablonów funkcji rekurencja może być przerwana przez dostarczenie odpowiednio przeciążonej funkcji. Zostanie ona w odpowiednim momencie rozwijania rekurencji wywołana.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span>
+<span class="p">{}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Tail</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Tail</span><span class="o">&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">params</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">arg1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">params</span><span class="p">...);</span><span class="w"> </span><span class="c1">// function parameter pack expansion</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="operator-sizeof">
+<h3>Operator sizeof<a class="headerlink" href="#operator-sizeof" title="Link to this heading">#</a></h3>
+<p>Operator <code class="docutils literal notranslate"><span class="pre">sizeof...</span></code> umożliwia odczytanie na etapie kompilacji ilości parametrów w grupie.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Types</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">VerifyCount</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">Count</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Types</span><span class="p">),</span>
+<span class="w">                    </span><span class="s">&quot;Error in counting number of parameters&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="forwardowanie-wywolan-funkcji">
+<h3>Forwardowanie wywołań funkcji<a class="headerlink" href="#forwardowanie-wywolan-funkcji" title="Link to this heading">#</a></h3>
+<p><strong>Variadic templates</strong> są niezwykle przydatne do forwardowania wywołań funkcji.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">params</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">params</span><span class="p">)...);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="ograniczenia-paczek-parametrow">
+<h3>Ograniczenia paczek parametrów<a class="headerlink" href="#ograniczenia-paczek-parametrow" title="Link to this heading">#</a></h3>
+<p>Klasa szablonowa może mieć tylko jedną paczkę parametrów i musi ona zostać umieszczona na końcu listy parametrów szablonu:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">...</span><span class="w"> </span><span class="n">Indexes</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Ts</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// error</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Error</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Można obejść to ograniczenie w następujący sposób:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">...</span><span class="w"> </span><span class="n">Indexes</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">IndexSequence</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Indexes</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Ts</span><span class="p">...</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Ok</span><span class="p">;</span>
+
+<span class="n">Ok</span><span class="o">&lt;</span><span class="n">IndexSequence</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ok</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Funkcje szablonowe mogą mieć więcej paczek parametrów:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">int</span><span class="p">...</span><span class="w"> </span><span class="n">Factors</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Ts</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">scale_and_print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Ts</span><span class="o">&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">ints</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">args</span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="n">scale_and_print</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">);</span><span class="w">  </span><span class="c1">// calls print(1 * 3.14, 2 * 2, 3 * 3.0)</span>
+</pre></div>
+</div>
+<p><strong>Uwaga!</strong> Wszystkie paczki w tym samym wyrażeniu rozpakowującym muszą mieć taki sam rozmiar.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">scale_and_print</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">);</span><span class="w">  </span><span class="c1">// error</span>
+</pre></div>
+</div>
+</section>
+<section id="nietypowe-paczki-parametrow">
+<h3>“Nietypowe” paczki parametrów<a class="headerlink" href="#nietypowe-paczki-parametrow" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Podobnie jak w przypadku innych parametrów szablonów, paczka parametrów nie musi być paczką typów, lecz może być paczką stałych znanych na etapie kompilacji</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">...</span><span class="w"> </span><span class="n">Values</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">MaxValue</span><span class="p">;</span><span class="w">  </span><span class="c1">// primary template declaration</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">size_t</span><span class="w"> </span><span class="n">First</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">...</span><span class="w"> </span><span class="n">Rest</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">MaxValue</span><span class="o">&lt;</span><span class="n">First</span><span class="p">,</span><span class="w"> </span><span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rvalue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaxValue</span><span class="o">&lt;</span><span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">First</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rvalue</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">rvalue</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">First</span><span class="p">;</span><span class="w">    </span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">size_t</span><span class="w"> </span><span class="n">Last</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">MaxValue</span><span class="o">&lt;</span><span class="n">Last</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Last</span><span class="p">;</span><span class="w">  </span><span class="c1">// termination of recursive expansion</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">static_assert</span><span class="p">(</span><span class="n">MaxValue</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5345</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">453</span><span class="p">,</span><span class="w"> </span><span class="mi">645</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5345</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="fold-expressions-c-17">
+<h2>Fold expressions (C++17)<a class="headerlink" href="#fold-expressions-c-17" title="Link to this heading">#</a></h2>
+<section id="wyrazenia-fold-w-jezykach-funkcjonalnych">
+<h3>Wyrażenia <em>fold</em> w językach funkcjonalnych<a class="headerlink" href="#wyrazenia-fold-w-jezykach-funkcjonalnych" title="Link to this heading">#</a></h3>
+<p>Koncept <em>redukcji</em> jest jednym z podstawowych pojęć w językach funkcjonalnych.</p>
+<p><strong>Fold</strong> w językach funkcjonalnych to rodzina funkcji wyższego rzędu zwana również <strong>reduce</strong>, <strong>accumulate</strong>, <strong>compress</strong> lub <strong>inject</strong>. Funkcje <strong>fold</strong> przetwarzają rekursywnie uporządkowane kolekcje danych (listy) w celu zbudowania końcowego wyniku przy pomocy funkcji (operatora) łączącej elementy.</p>
+<p>Dwie najbardziej popularne funkcje z tej rodziny to fold (fold left) i foldr (fold right).</p>
+<p>Przykład:</p>
+<p>Redukcja listy [1, 2, 3, 4, 5] z użyciem operatora (+):</p>
+<ul>
+<li><p>użycie funkcji <code class="docutils literal notranslate"><span class="pre">fold</span></code> - redukcja od lewej do prawej</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">fold</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(((((</span><span class="m">0</span><span class="w"> </span>+<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="m">3</span><span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="m">4</span><span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="m">5</span><span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>użycie funkcji <code class="docutils literal notranslate"><span class="pre">foldr</span></code> - redukcja od prawej do lewej</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">foldr</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="m">1</span><span class="w"> </span>+<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>+<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="w"> </span>+<span class="w"> </span><span class="o">(</span><span class="m">4</span><span class="w"> </span>+<span class="w"> </span><span class="o">(</span><span class="m">5</span><span class="w"> </span>+<span class="w"> </span><span class="m">0</span><span class="o">)))))</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<section id="redukcja-w-c-98-std-accumulate">
+<h4>Redukcja w C++98 - std::accumulate<a class="headerlink" href="#redukcja-w-c-98-std-accumulate" title="Link to this heading">#</a></h4>
+<p>W C++ redukcja jest obecna poprzez implementację algorytmu <code class="docutils literal notranslate"><span class="pre">std::accumulate</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">string_literals</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">vec</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">vec</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                   </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">reduction</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">                       </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;(&quot;</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">reduction</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="s">&quot; + &quot;</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;)&quot;</span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="wyrazenia-fold">
+<h3>Wyrażenia fold<a class="headerlink" href="#wyrazenia-fold" title="Link to this heading">#</a></h3>
+<p>Wyrażenia typu <em>fold</em> umożliwiają uproszczenie rekurencyjnych implementacji dla zmiennej liczby argumentów szablonu.</p>
+<p>Przykład z wariadyczną funkcją <code class="docutils literal notranslate"><span class="pre">sum(1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5)</span></code> z wykorzystaniem <em>fold expressions</em> może być w C++17 zaimplementowany następująco:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+</pre></div>
+</div>
+<section id="skladnia-wyrazen-fold">
+<h4>Składnia wyrażeń fold<a class="headerlink" href="#skladnia-wyrazen-fold" title="Link to this heading">#</a></h4>
+<p>Niech  <span class="math notranslate nohighlight">\(e = e_1, e_2, \dotso, e_n\)</span> będzie wyrażeniem, które zawiera nierozpakowany <em>parameter pack</em> i <span class="math notranslate nohighlight">\(\otimes\)</span> jest <em>operatorem fold</em>, wówczas <strong>wyrażenie fold</strong> ma postać:</p>
+<ul>
+<li><p>Unary <strong>left fold</strong></p>
+<p><span class="math notranslate nohighlight">\((\dotso\; \otimes\; e)\)</span></p>
+</li>
+</ul>
+<p>który jest rozwijany do postaci <span class="math notranslate nohighlight">\((((e_1 \otimes e_2) \dotso ) \otimes e_n)\)</span></p>
+<ul>
+<li><p>Unary <strong>right fold</strong></p>
+<p><span class="math notranslate nohighlight">\((e\; \otimes\; \dotso)\)</span></p>
+</li>
+</ul>
+<p>który jest rozwijany do postaci <span class="math notranslate nohighlight">\((e_1 \otimes ( \dotso (e_{n-1} \otimes e_n)))\)</span></p>
+<p>Jeśli dodamy argument nie będący paczką parametrów do operatora <code class="docutils literal notranslate"><span class="pre">...</span></code>, dostaniemy dwuargumentową wersję <strong>wyrażenia fold</strong>. W zależności od tego po której stronie operatora <code class="docutils literal notranslate"><span class="pre">...</span></code> dodamy dodatkowy argument otrzymamy:</p>
+<ul>
+<li><p>Binary <strong>left fold</strong></p>
+<p><span class="math notranslate nohighlight">\((a \otimes\; \dotso\; \otimes\; e)\)</span></p>
+</li>
+</ul>
+<p>który jest rozwijany do postaci <span class="math notranslate nohighlight">\((((a \otimes e_1) \dotso ) \otimes e_n)\)</span></p>
+<ul>
+<li><p>Binary <strong>right fold</strong></p>
+<p><span class="math notranslate nohighlight">\((e\; \otimes\; \dotso\; \otimes\; a)\)</span></p>
+</li>
+</ul>
+<p>który jest rozwijany do postaci <span class="math notranslate nohighlight">\((e_1 \otimes ( \dotso (e_n \otimes a)))\)</span></p>
+<p>Operatorem <span class="math notranslate nohighlight">\(\otimes\)</span> może być jeden z poniższych operatorów C++:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="w">  </span><span class="o">-</span><span class="w">  </span><span class="o">*</span><span class="w">  </span><span class="o">/</span><span class="w">  </span><span class="o">%</span><span class="w">  </span><span class="o">^</span><span class="w">  </span><span class="o">&amp;</span><span class="w">  </span><span class="o">|</span><span class="w">  </span><span class="o">~</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="o">&lt;</span><span class="w">  </span><span class="o">&gt;</span><span class="w">  </span><span class="o">&lt;&lt;</span><span class="w">  </span><span class="o">&gt;&gt;</span>
+<span class="o">+=</span><span class="w">  </span><span class="o">-=</span><span class="w">  </span><span class="o">*=</span><span class="w">  </span><span class="o">/=</span><span class="w">  </span><span class="o">%=</span><span class="w">  </span><span class="o">^=</span><span class="w">  </span><span class="o">&amp;=</span><span class="w">  </span><span class="o">|=</span><span class="w">  </span><span class="o">&lt;&lt;=</span><span class="w">  </span><span class="o">&gt;&gt;=</span>
+<span class="o">==</span><span class="w">  </span><span class="o">!=</span><span class="w">  </span><span class="o">&lt;=</span><span class="w">  </span><span class="o">&gt;=</span><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w">  </span><span class="o">||</span><span class="w">  </span><span class="p">,</span><span class="w">  </span><span class="p">.</span><span class="o">*</span><span class="w">  </span><span class="o">-&gt;*</span>
+</pre></div>
+</div>
+</section>
+<section id="elementy-identycznosciowe">
+<h4>Elementy identycznościowe<a class="headerlink" href="#elementy-identycznosciowe" title="Link to this heading">#</a></h4>
+<p>Operacja fold dla pustej paczki parametrów (<em>parameter pack</em>) jest ewaluowana do określonej wartości zależnej od rodzaju zastosowanego operatora. Zbiór operatorów i ich rozwinięć dla pustej listy parametrów prezentuje tabela:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Operator</p></th>
+<th class="head text-center"><p>Wartość zwracana jako element identycznościowy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>`</p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">,</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">void()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Jeśli operacja fold jest ewaluowana dla pustej paczki parametrów dla innego operatora, program jest nieprawidłowo skonstruowany (<em>ill-formed</em>).</p>
+</section>
+<section id="przyklady-zastosowan-wyrazen-fold">
+<h4>Przykłady zastosowań wyrażeń fold<a class="headerlink" href="#przyklady-zastosowan-wyrazen-fold" title="Link to this heading">#</a></h4>
+<section id="all-true">
+<h5>all_true<a class="headerlink" href="#all-true" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p>Wariadyczna funkcja przyjmująca dowolną liczbę argumentów konwertowalnych do wartości logicznych i zwracająca ich iloczyn logiczny (<code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&amp;&amp;</span></code>):</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">all_true</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">all_true</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="print">
+<h5>print()<a class="headerlink" href="#print" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p>Funkcja <code class="docutils literal notranslate"><span class="pre">print()</span></code> wypisująca przekazane argumenty. Implementacja wykorzystuje wyrażenie <em>binary left fold</em> dla operatora <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="invoke-call-foreach">
+<h5>invoke() &amp; call_foreach()<a class="headerlink" href="#invoke-call-foreach" title="Link to this heading">#</a></h5>
+<p>Implementacja wariadycznej wersji algorytmu <code class="docutils literal notranslate"><span class="pre">foreach()</span></code> z wykorzystaniem funkcji <code class="docutils literal notranslate"><span class="pre">std::invoke()</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">F</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span><span class="w"> </span><span class="n">invoke</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">call_foreach</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">fun</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(...,</span><span class="w"> </span><span class="n">invoke</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">));</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="c1">    </span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">literals</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Printer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">arg</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">call_foreach</span><span class="p">(</span><span class="n">Printer</span><span class="p">{},</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; - one; &quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; - pi;&quot;</span><span class="n">s</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lambda-expressions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Wyrażenia lambda</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ctad.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dedukcja argumentów dla szablonów klas - CTAD (C++17)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy">Aliasy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy-typow">Aliasy typów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy-szablonow">Aliasy szablonów</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasy-i-typename">Aliasy i typename</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#szablony-zmiennych">Szablony zmiennych</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zmienne-szablonowe-a-jednostki-translacji">Zmienne szablonowe a jednostki translacji</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-templates">Variadic templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-pack">Parameter pack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rozpakowanie-paczki-parametrow">Rozpakowanie paczki parametrów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idiom-head-tail">Idiom Head/Tail</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-sizeof">Operator sizeof</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forwardowanie-wywolan-funkcji">Forwardowanie wywołań funkcji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-paczek-parametrow">Ograniczenia paczek parametrów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nietypowe-paczki-parametrow">“Nietypowe” paczki parametrów</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fold-expressions-c-17">Fold expressions (C++17)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wyrazenia-fold-w-jezykach-funkcjonalnych">Wyrażenia <em>fold</em> w językach funkcjonalnych</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#redukcja-w-c-98-std-accumulate">Redukcja w C++98 - std::accumulate</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wyrazenia-fold">Wyrażenia fold</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skladnia-wyrazen-fold">Składnia wyrażeń fold</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#elementy-identycznosciowe">Elementy identycznościowe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklady-zastosowan-wyrazen-fold">Przykłady zastosowań wyrażeń fold</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#all-true">all_true</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#print">print()</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#invoke-call-foreach">invoke() &amp; call_foreach()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

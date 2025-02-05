@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Wstęp do TDD &#8212; Book title</title>
+    <title>Standardy ISO C++ &#8212; Modern C++</title>
   
   
   
@@ -58,10 +58,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tdd';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cpp-standards';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Szkolenie" href="index.html" />
+    <link rel="next" title="Nowości w rdzeniu języka" href="core-features.html" />
+    <link rel="prev" title="Nowoczesny C++" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -151,8 +152,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Book title - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Book title - Home"/>`);</script>
+    <img src="_static/logo.svg" class="logo__image only-light" alt="Modern C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Modern C++ - Home"/>`);</script>
   
   
 </a></div>
@@ -173,12 +174,34 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="index.html">
-                    Szkolenie
+                    Nowoczesny C++
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Wstęp do TDD</a></li>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Core</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Standardy ISO C++</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="core-features.html">Nowości w rdzeniu języka</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="constexpr-if.html">constexpr if (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="class-features.html">Klasy w C++11/17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="move.html">Semantyka przenoszenia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambda-expressions.html">Wyrażenia lambda</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="templates.html">Szablony</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ctad.html">Dedukcja argumentów dla szablonów klas - CTAD (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="constexpr.html">Programowanie na etapie kompilacji - constexpr</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Standard Library</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="smart-pointers.html">Inteligentne wskaźniki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuples.html">Krotki w C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string-view.html">Klasa std::string_view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="any.html">Klasa std::any</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional.html">Klasa std::optional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variant.html">Klasa std::variant</a></li>
 </ul>
 
     </div>
@@ -225,53 +248,6 @@
 
 
 
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/infotraining/docs-template" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/infotraining/docs-template/issues/new?title=Issue%20on%20page%20%2Ftdd.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
 <div class="dropdown dropdown-download-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
     <i class="fas fa-download"></i>
@@ -280,7 +256,7 @@
       
       
       
-      <li><a href="_sources/tdd.md" target="_blank"
+      <li><a href="_sources/cpp-standards.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -364,7 +340,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Wstęp do TDD</h1>
+    <h1>Standardy ISO C++</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -374,8 +350,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-programisty">Testy programisty</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trzy-prawa-tdd">Trzy prawa TDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dokument-standardu-c">Dokument standardu C++</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stala-cplusplus">Stała __cplusplus</a></li>
 </ul>
             </nav>
         </div>
@@ -387,41 +363,82 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="wstep-do-tdd">
-<h1>Wstęp do TDD<a class="headerlink" href="#wstep-do-tdd" title="Link to this heading">#</a></h1>
-<p><strong>Test-Driven Development (TDD)</strong> to technika tworzenia oprogramowania sterowana przez testy:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="standardy-iso-c">
+<h1>Standardy ISO C++<a class="headerlink" href="#standardy-iso-c" title="Link to this heading">#</a></h1>
+<p>Standardy ISO C++ definiują specyfikacje dla języka programowania C++. Te standardy są utrzymywane przez Międzynarodową Organizację Normalizacyjną (ISO) poprzez ISO/IEC JTC1/SC22/WG21 (Grupa Robocza C++). Standardy zapewniają, że C++ pozostaje spójne, a kod napisany zgodnie z jednym standardem może być kompilowany i uruchamiany poprawnie na różnych kompilatorach i systemach obsługujących ten standard.</p>
+<p>Oto kluczowe standardy C++:</p>
 <ul class="simple">
-<li><p>Utrzymujemy kompletny zestaw testów programisty (Programmer Tests)</p></li>
-<li><p>Kod nie powinien trafić do produkcji, jeśli nie ma powiązanych testów</p></li>
-<li><p>Najpierw piszemy testy</p></li>
-<li><p>Testy określają, jaki kod powinniśmy napisać</p></li>
+<li><p><strong>C++98</strong> (ISO/IEC 14882:1998): Pierwsza znormalizowana wersja C++. Wprowadziła kilka funkcjonalności, takich jak szablony, wyjątki, przestrzenie nazw i Standard Template Library (STL).</p></li>
+<li><p><strong>C++03</strong> (ISO/IEC 14882:2003): Wydanie naprawiające błędy w C++98. Dokonano drobnych dostosowań i ulepszeń języka na podstawie opinii z pierwotnego standardu C++98.</p></li>
+<li><p><strong>C++11</strong> (ISO/IEC 14882:2011): Znacząca aktualizacja, która wprowadziła wiele nowych funkcjonalności, w mechanizm dedukcji <code class="docutils literal notranslate"><span class="pre">auto</span></code> i <code class="docutils literal notranslate"><span class="pre">decltype</span></code>, pętle for dla zakresów, wyrażenia lambda, inteligentne wskaźniki i wsparcie dla wielowątkowości.</p></li>
+<li><p><strong>C++14</strong> (ISO/IEC 14882:2014): Aktualizacja przyrostowa do C++11, wprowadziła drobne ulepszenia i poprawki błędów, w tym lambdy generyczne i dedukcję typów zwracanych z funkcji.</p></li>
+<li><p><strong>C++17</strong> (ISO/IEC 14882:2017): Dodano funkcje takie jak <em>structured bindings</em>, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code>, <em>wyrażenia fold</em> oraz Parallel-STL.</p></li>
+<li><p><strong>C++20</strong> (ISO/IEC 14882:2020): Znacząca aktualizacja z wieloma nowymi funkcjonalnościami, takimi jak koncepty, biblioteka Ranges, korutyny oraz moduły.</p></li>
+<li><p><strong>C++23</strong> (ISO/IEC 14882:2023): Kilka nowości w rdzeniu języka (this jako parametr metody, wielowymiarowy operator indeksowania, statyczny operator <code class="docutils literal notranslate"><span class="pre">[]</span></code> oraz <code class="docutils literal notranslate"><span class="pre">()</span></code>) oraz w bibliotece standardowej (<code class="docutils literal notranslate"><span class="pre">std::mdspan</span></code>, <code class="docutils literal notranslate"><span class="pre">std::generator</span></code>, <code class="docutils literal notranslate"><span class="pre">std::print</span></code>).</p></li>
 </ul>
-<section id="testy-programisty">
-<h2>Testy programisty<a class="headerlink" href="#testy-programisty" title="Link to this heading">#</a></h2>
-<p>Testy programisty służą do sprawdzenia, czy klasa wykazuje prawidłowe zachowanie. Są tworzone przez programistę, który pisze kod do przetestowania.</p>
-<p>Podobne do testów jednostkowych, ale tworzone z innego powodu:</p>
+<p>Każdy z tych standardów ma na celu poprawę języka, uczynienie go bardziej potężnym, wydajnym i łatwiejszym w użyciu, przy jednoczesnym zachowaniu kompatybilności wstecznej.</p>
+<section id="dokument-standardu-c">
+<h2>Dokument standardu C++<a class="headerlink" href="#dokument-standardu-c" title="Link to this heading">#</a></h2>
+<p>Darmowa wersja bliska wersji finalnej standardu C++17:</p>
 <ul class="simple">
-<li><p>Testy jednostkowe tworzone są w celu sprawdzenia, czy napisany już kod działa</p></li>
-<li><p>Testy programisty definiują, co to znaczy, że kod działa</p></li>
+<li><p><a class="reference external" href="https://wg21.link/n4659">Working Draft, Standard for Programming Language C++</a></p></li>
 </ul>
-<p>Testy programisty nazywane są w ten sposób również w celu odróżnienia od testów tworzonych przez klienta, których zadaniem jest sprawdzenie, czy system działa prawidłowo z punktu widzenia użytkownika.</p>
-<p>Używanie TDD oznacza teoretycznie, że dysponujemy kompletnym zestawem testów. Dzieje się tak, ponieważ nie może istnieć kod, jeśli nie istnieje test, który ten kod powinien przejść. Piszemy test, a potem (i nie wcześniej) piszemy kod, który jest testowany przez ten test. W systemie nie powinien istnieć kod, który nie został napisany w odpowiedzi na test.</p>
-<p>Jeśli mamy do zaimplementowania jakiś fragment funkcjonalności, to najpierw tworzymy kod, który sprawdzi, czy ta funkcjonalność działa zgodnie z wymaganiami, a dopiero potem implementujemy samą funkcjonalność. Tworzymy test, a następnie tylko tyle kodu, żeby test mógł przejść.</p>
-<p>Testy określają, jaki kod powinniśmy napisać. Pisząc tylko kod wymagany do przejścia testu ograniczamy ilość kodu do napisania. Do weryfikacji testu tworzymy najprostszy, działający kod.</p>
 </section>
-<section id="trzy-prawa-tdd">
-<h2>Trzy prawa TDD<a class="headerlink" href="#trzy-prawa-tdd" title="Link to this heading">#</a></h2>
-<p>TDD zakłada pisanie testów jednostkowych na początku, przed napisanie kodu produkcyjnego.</p>
-<p>Możemy zdefiniować trzy podstawowe prawa TDD:</p>
-<ol class="arabic simple">
-<li><p>Nie można zacząć pisać kodu produkcyjnego przed zakończeniem pisania testu jednostkowego, który nie jest spełniony.</p></li>
-<li><p>Kod testu jednostkowego powinien być tylko tak długi, aby wystarczył do niespełnienia testu, a błędna kompilacja jest jednocześnie nieudanym testem.</p></li>
-<li><p>Nie można pisać większej ilości kodu produkcyjnego, niż jest wymagana do przejścia testu jednostkowego.</p></li>
-</ol>
-<p>Te trzy prawa zamykają się w cyklu, który trwa prawdopodobnie kilkadziesiąt sekund. Testy i kod produkcyjny są pisane razem, przy czym testy są pisane kilka sekund wcześniej niż kod produkcyjny.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Kod testów jest tak samo ważny, jak kod produkcyjny.</p>
+<section id="stala-cplusplus">
+<h2>Stała __cplusplus<a class="headerlink" href="#stala-cplusplus" title="Link to this heading">#</a></h2>
+<p>Stała preprocesora <code class="docutils literal notranslate"><span class="pre">__cplusplus</span></code> definiuje, która wersja standardu jest dostępna w trakcie kompilacji. Wartości, jakie może przyjmować, to:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Wersja standardu</p></th>
+<th class="head"><p>Stała</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dla C++98 i C++03</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">199711L</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>dla C++11</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">201103L</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>dla C++14</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">201402L</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>dla C++17</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">201703L</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>dla C++20</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">202002L</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>dla C++23</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&gt;20202L</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Najczęściej używamy tej stałej do warunkowego kompilowania kodu w zależności od wersji standardu C++:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Check the value of __cplusplus to determine the C++ standard version</span>
+<span class="w">    </span><span class="cp">#if __cplusplus == 199711L</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;C++98 or C++03&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#elif __cplusplus == 201103L</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;C++11&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#elif __cplusplus == 201402L</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;C++14&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#elif __cplusplus == 201703L</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;C++17&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#elif __cplusplus == 202002L</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;C++20&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#elif __cplusplus &gt; 202002L</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;C++23 or later&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#else</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Unknown C++ version&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="cp">#endif</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </section>
 </section>
@@ -462,8 +479,17 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Szkolenie</p>
+        <p class="prev-next-title">Nowoczesny C++</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="core-features.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Nowości w rdzeniu języka</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -481,8 +507,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-programisty">Testy programisty</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trzy-prawa-tdd">Trzy prawa TDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dokument-standardu-c">Dokument standardu C++</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stala-cplusplus">Stała __cplusplus</a></li>
 </ul>
   </nav></div>
 

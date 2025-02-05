@@ -1,0 +1,870 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasy w C++11/17 &#8212; Modern C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'class-features';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Semantyka przenoszenia" href="move.html" />
+    <link rel="prev" title="constexpr if (C++17)" href="constexpr-if.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="Modern C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Modern C++ - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Nowoczesny C++
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Core</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cpp-standards.html">Standardy ISO C++</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="core-features.html">Nowości w rdzeniu języka</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="constexpr-if.html">constexpr if (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasy w C++11/17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="move.html">Semantyka przenoszenia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambda-expressions.html">Wyrażenia lambda</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="templates.html">Szablony</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ctad.html">Dedukcja argumentów dla szablonów klas - CTAD (C++17)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="constexpr.html">Programowanie na etapie kompilacji - constexpr</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modern C++ Standard Library</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="smart-pointers.html">Inteligentne wskaźniki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuples.html">Krotki w C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string-view.html">Klasa std::string_view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="any.html">Klasa std::any</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional.html">Klasa std::optional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variant.html">Klasa std::variant</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/class-features.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasy w C++11/17</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specjalne-funkcje-skladowe-klas">Specjalne funkcje składowe klas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslne-specjalne-funkcje-skladowe-default">Domyślne specjalne funkcje składowe - default</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usuniete-funkcje-skladowe-delete">Usunięte funkcje składowe - delete</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslna-inicjalizacja-nie-statycznych-skladowych-klasy">Domyślna inicjalizacja nie-statycznych składowych klasy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delegowanie-konstruktorow">Delegowanie konstruktorów</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dziedziczenie-konstruktorow">Dziedziczenie konstruktorów</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kontrola-nadpisywania-metod-wirtualnych-override">Kontrola nadpisywania metod wirtualnych - override</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blokowanie-dziedziczenia-lub-nadpisywania-metod-final">Blokowanie dziedziczenia lub nadpisywania metod - final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statyczne-skladowe-inline-c-17">Statyczne składowe inline - C++17</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicja-skladowej-statycznej-inline">Definicja składowej statycznej inline</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasy-w-c-11-17">
+<h1>Klasy w C++11/17<a class="headerlink" href="#klasy-w-c-11-17" title="Link to this heading">#</a></h1>
+<p>Nowe elementy klas w C++11 umożliwiają:</p>
+<ul class="simple">
+<li><p>Jawne definiowanie operacji specjalnych jako domyślne</p></li>
+<li><p>Jawne blokowanie domyślnych operacji specjalnych</p></li>
+<li><p>Blokowanie dziedziczenia po danej klasie</p></li>
+<li><p>Blokowanie nadpisywania implementacji metod w klasach pochodnych</p></li>
+<li><p>Upewnienie się na etapie kompilacji, że nadpisywana metoda istnieje w klasie bazowej</p></li>
+<li><p>Użycie przez konstruktor innych konstruktorów klasy</p></li>
+<li><p>Inicjalizowanie składowych klasy w miejscu deklaracji</p></li>
+</ul>
+<section id="specjalne-funkcje-skladowe-klas">
+<h2>Specjalne funkcje składowe klas<a class="headerlink" href="#specjalne-funkcje-skladowe-klas" title="Link to this heading">#</a></h2>
+<p>Specjalne funkcje składowe klas w C++11:</p>
+<ul class="simple">
+<li><p>Konstruktor domyślny</p></li>
+<li><p>Destruktor</p></li>
+<li><p>Operacje kopiowania - konstruktor kopiujący i kopiujący <code class="docutils literal notranslate"><span class="pre">operator=</span></code></p></li>
+<li><p>Operacje przenoszenia - konstruktor przenoszący i przenoszący <code class="docutils literal notranslate"><span class="pre">operator=</span></code></p></li>
+</ul>
+<p>Wszystkie specjalne funkcje składowe jeżeli są domyślnie generowane przez kompilator, to posiadają następujące cechy:</p>
+<ul class="simple">
+<li><p>są publiczne</p></li>
+<li><p>są inline</p></li>
+<li><p>są non-explicit</p></li>
+</ul>
+<p>C++11 daje możliwość jawnego zadeklarowania funkcji specjalnych jako domyślnych lub usunięcia ich z interfejsu klasy.</p>
+<section id="domyslne-specjalne-funkcje-skladowe-default">
+<h3>Domyślne specjalne funkcje składowe - default<a class="headerlink" href="#domyslne-specjalne-funkcje-skladowe-default" title="Link to this heading">#</a></h3>
+<p>Deklaracja <code class="docutils literal notranslate"><span class="pre">default</span></code> - wymusza na kompilatorze generację domyślnej implementacji dla deklaracji specyfikowanej przez użytkownika (np. generacja domyślnego konstruktora w przypadku, gdy istnieją inne konstruktory przyjmujące parametry)</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Gadget</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="p">);</span><span class="w"> </span><span class="c1">// copy constructor will prevent </span>
+<span class="w">                           </span><span class="c1">// generating implicitly declared </span>
+<span class="w">                           </span><span class="c1">// default ctor and move operations</span>
+
+<span class="w">    </span><span class="n">Gadget</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Gadget</span><span class="p">(</span><span class="n">Gadget</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Operacje zadeklarowane jako <code class="docutils literal notranslate"><span class="pre">default</span></code> są traktowane jako <em>user-declared</em>.</p>
+<p>W efekcie klasa:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Any</span><span class="w"> </span><span class="c1">// default copy semantics enabled</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>nie jest taka sama jak klasa zaimplementowana w poniższy sposób:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Any</span><span class="w">  </span><span class="c1">// default copy semantics deprecated in C++14 (and later probably disabled)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+
+<span class="w">    </span><span class="o">~</span><span class="n">Any</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="usuniete-funkcje-skladowe-delete">
+<h3>Usunięte funkcje składowe - delete<a class="headerlink" href="#usuniete-funkcje-skladowe-delete" title="Link to this heading">#</a></h3>
+<p>Deklaracja <code class="docutils literal notranslate"><span class="pre">delete</span></code> - usuwa wskazaną funkcję lub funkcję składową z interfejsu klasy. Nie jest generowany kod takiej funkcji, a wywołanie jej, pobranie adresu lub użycie w wyrażeniu z <code class="docutils literal notranslate"><span class="pre">sizeof</span></code> jest błędem kompilacji.</p>
+<p>Aby zablokować kopiowanie obiektów danego typu w C++11 można wykorzystać następujący idiom:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// prevents object from making copies and from move operations</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NoCopyable</span>
+<span class="p">{</span>
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="n">NoCopyable</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">NoCopyable</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">NoCopyable</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="n">NoCopyable</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">NoCopyable</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Usuwanie funkcji z interfejsu przy pomocy słowa <code class="docutils literal notranslate"><span class="pre">delete</span></code> nie jest ograniczone tylko do funkcji specjalnych klas. Zastosowanie <code class="docutils literal notranslate"><span class="pre">delete</span></code> dla funkcji wolnej umożliwia uniknięcie niejawnej konwersji argumentów wywołania funkcji:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">integral_only</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;integral_only: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">integral_only</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="n">integral_only</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK</span>
+
+<span class="kt">short</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="n">integral_only</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK - implicit conversion to short</span>
+
+<span class="n">integral_only</span><span class="p">(</span><span class="mf">3.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// error - use of deleted function</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="domyslna-inicjalizacja-nie-statycznych-skladowych-klasy">
+<h2>Domyślna inicjalizacja nie-statycznych składowych klasy<a class="headerlink" href="#domyslna-inicjalizacja-nie-statycznych-skladowych-klasy" title="Link to this heading">#</a></h2>
+<p>W C++11 można inicjować nie-statyczne składowe klasy bezpośrednio w miejscu ich deklaracji.</p>
+<p>Wartość użyta do inicjalizacji będzie przypisana składowej, jeśli wywoływany konstruktor nie nadpisze jej inną wartością.</p>
+<p>Operacje kopiowania lub przenoszenia ignorują wartości domyślne</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">default_id</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">++</span><span class="n">id</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">id_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_id</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.99</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">{</span><span class="s">&quot;unknown&quot;</span><span class="p">};</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Gadget</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Gadget</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">id_</span><span class="w"> </span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">Gadget</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">id_</span><span class="p">{</span><span class="n">id</span><span class="p">},</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="p">{</span><span class="n">price</span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">Gadget</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">price</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">id_</span><span class="w"> </span><span class="p">{</span><span class="n">id</span><span class="p">},</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="p">{</span><span class="n">price</span><span class="p">},</span><span class="w"> </span><span class="n">name_</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">}</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="c1">// ...</span>
+
+<span class="n">Gadget</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">            </span><span class="c1">// a.id_ = 1, a.price_ = 0.99, a.name_ = &quot;unknown&quot;</span>
+
+<span class="n">Gadget</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">        </span><span class="c1">// a.id_ = 5, a.price_ = 0.99, a.name_ = &quot;unknown&quot;</span>
+
+<span class="n">Gadget</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="p">{</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mf">2.99</span><span class="p">};</span><span class="w">  </span><span class="c1">// a.id_ = 7, a.price_ = 2.99, a.name_ = &quot;unknown&quot;</span>
+
+<span class="n">Gadget</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mf">2.99</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;item#1&quot;</span><span class="p">};</span><span class="w">  </span><span class="c1">// a.id_ = 9, a.price_ = 2.99, a.name_ = &quot;item#1&quot;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Użycie domyślnej inicjalizacji wewnątrz struktury powoduje, że przestaje ona być agregatem.</p>
+</div>
+</section>
+<section id="delegowanie-konstruktorow">
+<h2>Delegowanie konstruktorów<a class="headerlink" href="#delegowanie-konstruktorow" title="Link to this heading">#</a></h2>
+<p>Konstruktor może wywoływać inne konstruktory tej samej klasy.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Item</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">id_</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Item</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">id_</span><span class="w"> </span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="w"> </span><span class="c1">// non-delegating constructor</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// a</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+
+<span class="w">    </span><span class="n">Item</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Item</span><span class="w"> </span><span class="p">{</span><span class="mi">-1</span><span class="p">}</span><span class="w"> </span><span class="c1">// delegating constructor</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// b (called after a)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Item</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Item</span><span class="w"> </span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">stoi</span><span class="p">(</span><span class="n">id</span><span class="p">)}</span><span class="w"> </span><span class="c1">// delegating constructor</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// c (called after a)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Obiekt jest uznany za poprawnie skonstruowany, gdy pierwszy konstruktor wywołany zakończy się bez wyjątku (=&gt; wywołany będzie destruktor obiektu).</p>
+</div>
+</section>
+<section id="dziedziczenie-konstruktorow">
+<h2>Dziedziczenie konstruktorów<a class="headerlink" href="#dziedziczenie-konstruktorow" title="Link to this heading">#</a></h2>
+<p>Deklaracja <code class="docutils literal notranslate"><span class="pre">using</span></code> może być użyta w połączeniu z konstruktorami klasy bazowej. Powoduje to niejawne deklaracje konstruktorów klasy pochodnej, które przyjmują takie same listy paramtrów co konstruktory klasy bazowej. Ich implementacja polegająca na wywołaniu wersji z klasy bazowej jest generowana tylko wtedy, gdy są one rzeczywiście użyte.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Base</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_something</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+<span class="p">};</span><span class="w"> </span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Base</span><span class="o">::</span><span class="n">Base</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK in C++11</span>
+<span class="w">                      </span><span class="c1">// implicit declaration of Derived::Derived(int)</span>
+
+<span class="w">    </span><span class="n">Derived</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span><span class="w"> </span><span class="c1">// overloaded inherited Base ctor</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Użycie dziedziczenia konstruktorów w klasach pochodnych, które dodają nowe pola może być ryzykowne:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Augmented</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Derived</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Derived</span><span class="o">::</span><span class="n">Derived</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">Augmented</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">};</span><span class="w"> </span><span class="c1">// a.name_ == &quot;&quot; - default init </span>
+<span class="w">                  </span><span class="c1">// and a.value_ is uninitialized</span>
+</pre></div>
+</div>
+</section>
+<section id="kontrola-nadpisywania-metod-wirtualnych-override">
+<h2>Kontrola nadpisywania metod wirtualnych - override<a class="headerlink" href="#kontrola-nadpisywania-metod-wirtualnych-override" title="Link to this heading">#</a></h2>
+<p>Słowo <code class="docutils literal notranslate"><span class="pre">override</span></code> ma specjalne znaczenie w deklaracji klas i powoduje sprawdzenie na etapie kompilacji, czy nadpisywana metoda jest zadeklarowana w taki sam sposób w klasie bazowej.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">();</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">k</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">();</span><span class="w"> </span><span class="c1">// overrides Base::f()</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">();</span><span class="w"> </span><span class="c1">// doesn&#39;t override B::g() const</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span><span class="w"> </span><span class="c1">// overrides B::h(char)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">k</span><span class="p">();</span><span class="w"> </span><span class="c1">// doesn&#39;t override</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived2</span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK - overrides Base::f()</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// error - doesn&#39;t override B::g() const</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK - overrides B::h(char)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">k</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// error - B::k() is not virtual</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="blokowanie-dziedziczenia-lub-nadpisywania-metod-final">
+<h2>Blokowanie dziedziczenia lub nadpisywania metod - final<a class="headerlink" href="#blokowanie-dziedziczenia-lub-nadpisywania-metod-final" title="Link to this heading">#</a></h2>
+<p>Od C++11 możemy zablokować dziedziczenie po klasie słowem <code class="docutils literal notranslate"><span class="pre">final</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">NoInheritable</span><span class="w"> </span><span class="k">final</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">NoInheritable</span><span class="w"> </span><span class="c1">// error - base marked as final</span>
+<span class="p">{</span><span class="w">   </span>
+<span class="w">    </span><span class="c1">// ... </span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Można też określić, że implementacja metody wirtualnej jest ostateczna i nie powinna być nadpisywana:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">final</span><span class="p">;</span><span class="w"> </span><span class="c1">// enables additional optimization </span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Derived1</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// error - f() attempts to override Derived1::f() </span>
+<span class="w">                             </span><span class="c1">// marked as final </span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="statyczne-skladowe-inline-c-17">
+<h2>Statyczne składowe inline - C++17<a class="headerlink" href="#statyczne-skladowe-inline-c-17" title="Link to this heading">#</a></h2>
+<p>W C++17 statyczne zmienne oznaczone jako <code class="docutils literal notranslate"><span class="pre">inline</span></code> są uznawane jako definicja takiej zmiennej w programie.</p>
+<ul class="simple">
+<li><p>gwarantowana jest jednokrotna definicja zmiennej nawet wtedy, gdy nagłówek z definicją jest włączany w wielu jednostkach translacji</p></li>
+<li><p>nie musimy tworzyć pliku <em>cpp</em> tylko na potrzeby definicji zmiennych globalnych/statycznych</p></li>
+</ul>
+<section id="definicja-skladowej-statycznej-inline">
+<h3>Definicja składowej statycznej inline<a class="headerlink" href="#definicja-skladowej-statycznej-inline" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Plik <code class="docutils literal notranslate"><span class="pre">gadget.hpp</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">()</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">counter_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Gadget</span><span class="p">()</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="o">++</span><span class="n">counter_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Gadget</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="w">    </span><span class="o">~</span><span class="n">Gadget</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="o">--</span><span class="n">counter_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">counter_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">class_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gadget&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Plik <code class="docutils literal notranslate"><span class="pre">a.cpp</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gadget.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;No of gadgets: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">Gadget</span><span class="o">::</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Plik <code class="docutils literal notranslate"><span class="pre">b.cpp</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gadget.hpp&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">bootstrap</span><span class="p">(</span><span class="n">GadgetFactory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gf</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">gf</span><span class="p">.</span><span class="k">register</span><span class="p">(</span><span class="n">Gadget</span><span class="o">::</span><span class="n">class_id</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Gadget</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Zmienne statyczne <code class="docutils literal notranslate"><span class="pre">inline</span></code> mogą być:</p>
+<ul class="simple">
+<li><p>inicjalizowane przed funkcją <code class="docutils literal notranslate"><span class="pre">main()</span></code> lub przed pierwszym użyciem</p></li>
+<li><p>mogą być <code class="docutils literal notranslate"><span class="pre">thread_local</span></code></p></li>
+<li><p>modyfikator <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> implikuje, że zmienna statyczna jest <code class="docutils literal notranslate"><span class="pre">inline</span></code></p></li>
+</ul>
+<p>Przykład (plik <code class="docutils literal notranslate"><span class="pre">monitor.hpp</span></code>):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Monitor</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Monitor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">thread_local</span><span class="w"> </span><span class="n">Monitor</span><span class="w"> </span><span class="n">global_monitor</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="constexpr-if.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">constexpr if (C++17)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="move.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Semantyka przenoszenia</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specjalne-funkcje-skladowe-klas">Specjalne funkcje składowe klas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslne-specjalne-funkcje-skladowe-default">Domyślne specjalne funkcje składowe - default</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usuniete-funkcje-skladowe-delete">Usunięte funkcje składowe - delete</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslna-inicjalizacja-nie-statycznych-skladowych-klasy">Domyślna inicjalizacja nie-statycznych składowych klasy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delegowanie-konstruktorow">Delegowanie konstruktorów</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dziedziczenie-konstruktorow">Dziedziczenie konstruktorów</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kontrola-nadpisywania-metod-wirtualnych-override">Kontrola nadpisywania metod wirtualnych - override</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blokowanie-dziedziczenia-lub-nadpisywania-metod-final">Blokowanie dziedziczenia lub nadpisywania metod - final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statyczne-skladowe-inline-c-17">Statyczne składowe inline - C++17</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicja-skladowej-statycznej-inline">Definicja składowej statycznej inline</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
