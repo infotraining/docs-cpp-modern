@@ -27,12 +27,12 @@ p {
 
 ol li > p + ul.simple
 {
-  /* margin-top: 0.4rem !important; */
+  margin-top: 0.4rem !important;
 }
 
 p + ul.simple
 {
-  /* margin-top: -1rem !important; */
+  margin-top: -1rem !important;
 }
 
 img {
@@ -109,7 +109,7 @@ div.admonition {
 
 dt {
   font-weight: 700;
-  font-size: 1em !important;
+  font-size: 1.2em !important;
   background-color: var(--my-color-definition-background);
   border-bottom-color: var(--my-color-definition-border-bottom);
   border-bottom-style: solid;

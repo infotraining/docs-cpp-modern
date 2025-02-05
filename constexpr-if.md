@@ -1,4 +1,4 @@
-## constexpr if (C++17)
+# constexpr if (C++17)
 
 C++17 wprowadza do standardu C++ nową postać instrukcji warunkowej `if`, która działa na etapie kompilacji - tzw. `constexpr if`.
 
@@ -52,7 +52,7 @@ auto compute(T x)
 }
 ```
 
-### Discarded statements
+## Discarded statements
 
 Kod (grupa instrukcji), który jest ominięty przy kompilacji (tzw. *discarded statement*), nie jest instancjonowany, ale musi być poprawny składniowo. Mechanizm *constexpr if* zasadniczo odpowiada pierwszemu etapowi przetwarzania szablonów przez kompilator (faza definicji).
 

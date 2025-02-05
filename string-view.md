@@ -1,45 +1,65 @@
 # Klasa std::string_view
 
-* Nagłówek: `<string_view>`
+Typ `std::string_view` jest lekkim widokiem *read-only* dla sekwencji znaków. Jest on zaprojektowany do wydajnego odwoływania się do stringów (tablic znaków) lub ich fragmentów bez konieczności alokacji pamięci.
 
-* Lekki uchwyt dla sekwencji znaków (*read-only*)
+Typ `std::string_view` jest zdefiniowany w nagłówku `<string_view>`.
 
-  - czas życia danych (bufora znaków) nie jest kontrolowany przez obiekt typu `string_view`
+```c++
+#include <string_view>
 
-  ```{code-block} cpp
-  string_view good("text literal"); // OK - internal pointer points to static array
-  string_view bad("string literal"s); // BAD - internal pointer is a dangling pointer
-  ```
+const char* txt_c = "text";
+std::string_view txt_sv = c_txt; // txt_sv refers to txt_c c-string
+```
 
-  - brak wsparcia dla alokatorów - nie są potrzebne
-  - przekazywanie przez wartość jest efektywne
-  - typowa implementacja: wskaźnik na stały znak (`const char*`) i rozmiar
+```c++
+std::string txt_str = "text";
+std::string_view txt_sv = txt_str; // txt_sv refers to txt_str string
+```
 
-* Zdefiniowane są również odpowiedniki dla innych typów znakowych niż `char`:
+```c++
+void print_text(std::string_view txt)
+{
+    std::cout << txt << std::endl;
+}
 
-  - `std::wstring_view` - dla typu `wchar_t`
-  - `std::u16string_view` - dla typu `char16_t`
-  - `std::u32string_view` - dla typu `char32_t`
+print_text("text"); // prints "text"
+print_text(std::string("Text")); // prints "text"
+
+const char* txt = "Hello World!!!";
+print_text(std::string_view{txt, 6}); // prints "Hello"
+```
+
+## Najważniejsze cechy std::string_view
+
+* Czas życia danych (bufora znaków) nie jest kontrolowany przez obiekt typu `string_view`
+
+* Brak wsparcia dla alokatorów - nie są potrzebne
+
+* Przekazywanie przez wartość do funkcji jest efektywne
+
+  * typowa implementacja: wskaźnik na stały znak (`const char*`) i rozmiar
+
+* Zdefiniowane są odpowiedniki dla innych typów znakowych niż `char`:
+
+  * `std::wstring_view` - dla typu `wchar_t`
+  * `std::u16string_view` - dla typu `char16_t`
+  * `std::u32string_view` - dla typu `char32_t`
 
 * Literał: `sv`
 
-  - zdefiniowany w nagłówku `<literals>`
-  - zdefiniowany jako `constexpr`
-
-  ```{code-block} cpp
-  auto txt = "text"sv;
-  ```
+  * zdefiniowany w nagłówku `<literals>`
+  * zdefiniowany jako `constexpr`
 
 * Obiekt `string_view` zapewnia podobną funkcjonalność jak `std::string`:
 
-  - `operator[]`
-  - `at()`
-  - `data()`
-  - `size()`
-  - `length()`
-  - `find()`
-  - `find_first_of()`
-  - `find_last_of()`
+  * `operator[]`
+  * `at()`
+  * `data()`
+  * `size()`
+  * `length()`
+  * `find()`
+  * `find_first_of()`
+  * `find_last_of()`
 
 * Zapewnia operatory porównania i wyliczania skrótu (`std::hash<std::string_view>`)
 
@@ -47,14 +67,14 @@
 
 * Wartość po konstrukcji domyślnej dla wewnętrznego wskaźnika to `nullptr`
 
-  - `string::data` nie może zwrócić `nullptr`
+  * `string::data` nie może zwrócić `nullptr`
 
-  ```{code-block} cpp
-  string_view txt;
+    ```{code-block} cpp
+    string_view txt;
 
-  assert(txt.data() == nullptr);
-  assert(txt.size() == 0);
-  ```
+    assert(txt.data() == nullptr);
+    assert(txt.size() == 0);
+    ```
 
 * Typ `string_view` nie ma gwarancji, że bufor znaków jest zakończony zerem (*null terminated string*)
 
@@ -82,44 +102,36 @@ Dla `string_view` zawsze należy sprawdzić rozmiar operacją `size()` zanim uż
 
 * Obiekty `string_view` przekazywane jako argumenty wywołania funkcji powinny być przekazywane przez wartość.
 
-```{code-block} cpp
-void foo_s(const string& s);
-void foo_sv(string_view sv);
+* `std::string_view` powinno być stosowane zamiast `string` jeśli:
 
-foo_s("text"); // computes length, allocates memory, copies characters
-foo_sv("text"); // computes only length
-```
-
-* `string_view` powinno być stosowane zamiast `string` jeśli:
-
-  - API nie wymaga, aby tekst był zakończony zerem
-
-    - nie można przekazywać `string_view` do funkcji języka C
-
-  - odbiorca respektuje czas życia obiektu
-  - dostęp do danych przy pomocy metody `data()` uwzględnia potencjalny pusty wskaźnik (`nullptr`)
+  * API nie wymaga, aby tekst był zakończony zerem
+    * nie można przekazywać `std::string_view` do funkcji języka C
+  
+  * odbiorca respektuje czas życia obiektu
+  
+  * dostęp do danych przy pomocy metody `data()` uwzględnia potencjalny pusty wskaźnik (`nullptr`)
 
 * Należy unikać zwracania `string_view`, chyba że jest to świadomy wybór programisty
+  
+  * zwrócenie `string_view` może być niebezpieczne - należy pamiętać o tym, że `string_view` jest **non-owning view**
 
-  - zwrócenie `string_view` może być niebezpieczne - należy pamiętać o tym, że `string_view` jest **non-owning view**
+    ````{warning}
+    ```{code-block} cpp
+    std::string_view get_first_token(std::string_view text)
+    {
+        return text.substr(0, text.find(' '));
+    }
+    ```
 
-  ```{code-block} cpp
-  string_view start_from_word(string_view text, string_view word)
-  {
-        return text.substr(text.find(word));
-  }
-  ```
+    Jeśli wywołamy funkcję `get_first_token()` w następujący sposób:
 
-  Jeśli wywołamy funkcję `start_from_word()` w następujący sposób:
+    ```{code-block} cpp
+    std::string_view token = get_first_token("Hello World!!!");
+    ```
 
-  ```{code-block} cpp
-  auto text = "one two three"s;
-
-  auto sv = start_from_word(text + " four", "two");
-  ```
-
-  Dostaniemy instancję `string_view` z wiszącym wskaźnikiem odnoszącym się do nieaktualnej już tablicy znaków, która 
-  została zwolniona w momencie wyjścia z funkcji.
+    Dostaniemy instancję `std::string_view` z wiszącym wskaźnikiem odnoszącym się do nieaktualnej już tablicy znaków, która 
+    została zwolniona w momencie wyjścia z funkcji.
+    ````
 
 * Dostarczanie obydwu wersji funkcji jako przeciążeń może powodować dwuznaczności:
 
