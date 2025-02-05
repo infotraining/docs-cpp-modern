@@ -1,15 +1,24 @@
-format: jb-article
-root: stdcpp17
-sections:
-- file: basic-features
-- file: class-features
-- file: move
-- file: lambda-expressions
-- file: templates
-- file: ctad
-- file: constexpr
-- file: tuples
-- file: string-view
-- file: any
-- file: optional
-- file: variant
+format: jb-book
+root: index
+parts:
+- caption: Modern C++ Core
+  chapters:
+  - file: cpp-standards
+  - file: core-features
+    sections:
+    - file: constexpr-if
+  - file: class-features
+  - file: move
+  - file: lambda-expressions
+  - file: templates
+    sections:
+    - file: ctad
+  - file: constexpr
+- caption: Modern C++ Standard Library
+  chapters: 
+  - file: smart-pointers
+  - file: tuples
+  - file: string-view
+  - file: any
+  - file: optional
+  - file: variant

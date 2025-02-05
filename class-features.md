@@ -1,4 +1,4 @@
-# Klasy w C++11
+# Klasy w C++11/17
 
 Nowe elementy klas w C++11 umożliwiają:
 
@@ -296,7 +296,7 @@ public:
 };
 ```
 
-## Statyczne składowe inline
+## Statyczne składowe inline - C++17
 
 W C++17 statyczne zmienne oznaczone jako `inline` są uznawane jako definicja takiej zmiennej w programie.
 
@@ -353,7 +353,7 @@ int main()
 
 void bootstrap(GadgetFactory& gf)
 {
-    gf.register(Gadget::class_id, &make_unique<Gadget>);
+    gf.register(Gadget::class_id, [] { return std::make_unique<Gadget>(); });
 }
 ```
 
