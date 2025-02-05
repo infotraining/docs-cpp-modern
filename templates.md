@@ -314,7 +314,7 @@ Funkcje szablonowe mogą mieć więcej paczek parametrów:
 
 ```c++
 template <int... Factors, typename... Ts>
-void scale_and_print(Ts const&... args)
+void scale_and_print(const Ts&... args)
 {
     print(ints * args...);
 }
@@ -352,35 +352,6 @@ struct MaxValue<Last>
 
 ```c++
 static_assert(MaxValue<1, 5345, 3, 453, 645, 13>::value == 5345, "Error");
-```
-
-### Variadic Mixins
-
-**Variadic templates** mogą być skutecznie wykorzystane do implementacji klas **mixin**
-
-```c++
-#include <vector>
-#include <string>
-
-template <typename... Mixins>
-class X : public Mixins...
-{
-public:
-    X(Mixins&&... mixins) : Mixins(mixins)... 
-    {}
-};
-```
-
-Klasa taka może zostać wykorzystana później w następujący sposób:
-
-```c++
-X<std::vector<int>, std::string> x({ 1, 2, 3 }, "text");
-
-x.std::string::size();
-```
-
-```c++
-x.std::vector<int>::size();
 ```
 
 ## Fold expressions (C++17)
@@ -505,7 +476,10 @@ Jeśli operacja fold jest ewaluowana dla pustej paczki parametrów dla innego op
 
 #### Przykłady zastosowań wyrażeń fold
 
-Wariadyczna funkcja przyjmująca dowolną liczbę argumentów konwertowalnych do wartości logicznych i zwracająca ich iloczyn logiczny (`operator &&`):
+
+##### all_true
+
+* Wariadyczna funkcja przyjmująca dowolną liczbę argumentów konwertowalnych do wartości logicznych i zwracająca ich iloczyn logiczny (`operator &&`):
 
 ```c++
 template <typename... Args>
@@ -519,9 +493,9 @@ bool all_true(Args... args)
 bool result = all_true(true, true, false, true);
 ```
 
-* * * * *
+##### print()
 
-Funkcja `print()` wypisująca przekazane argumenty. Implementacja wykorzystuje wyrażenie *binary left fold* dla operatora `<<`:
+* Funkcja `print()` wypisująca przekazane argumenty. Implementacja wykorzystuje wyrażenie *binary left fold* dla operatora `<<`:
 
 ```c++
 #include <iostream>
@@ -537,37 +511,7 @@ void print(Args&&... args)
 print(1, 2, 3, 4);
 ```
 
-* * * * *
-
-Iteracja po elementach różnych typów:
-
-```c++
-#include <iostream>
-
-struct Window {
-    void show() const { std::cout << "showing Window\n"; }
-};
-
-struct Widget {
-    void show() const { std::cout << "showing Widget\n"; }
-};
-
-struct Toolbar {
-    void show() const { std::cout << "showing Toolbar\n"; }
-};
-```
-
-```c++
-Window wnd;
-Widget widget;
-Toolbar toolbar;        
-
-auto printer = [](const auto&... args) { args.show(), ...); };
-
-printer(wnd, widget, toolbar);
-```
-
-* * * * *
+##### invoke() & call_foreach()
 
 Implementacja wariadycznej wersji algorytmu `foreach()` z wykorzystaniem funkcji `std::invoke()`:
 
@@ -575,15 +519,13 @@ Implementacja wariadycznej wersji algorytmu `foreach()` z wykorzystaniem funkcji
 #include <iostream>
 
 template <typename F, typename... Args>
-auto invoke(F&& f, Args&&... args)
+decltype(auto) invoke(F&& f, Args&&... args)
 {
     return std::forward<F>(f)(std::forward<Args>(args)...);
 }
 
-struct Printer
-{
-    template <typename T>
-    void operator()(T&& arg) const { std::cout << arg; }
+auto call_foreach = [](auto&& fun, auto&&... args) {
+    (..., invoke(fun, std::forward<decltype(args)>(args));
 };
 ```
 
@@ -592,9 +534,11 @@ struct Printer
 
 using namespace std::literals;
 
-auto foreach = [](auto&& fun, auto&&... args) {
-    (..., invoke(fun, std::forward<decltype(args)>(args));
+struct Printer
+{
+    template <typename T>
+    void operator()(T&& arg) const { std::cout << arg; }
 };
 
-foreach(Printer{}, 1, " - one; ", 3.14, " - pi;"s);
+call_foreach(Printer{}, 1, " - one; ", 3.14, " - pi;"s);
 ```

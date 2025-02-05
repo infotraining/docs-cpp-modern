@@ -5,6 +5,8 @@ parts:
   chapters:
   - file: cpp-standards
   - file: core-features
+    sections:
+    - file: constexpr-if
   - file: class-features
   - file: move
   - file: lambda-expressions
@@ -14,6 +16,7 @@ parts:
   - file: constexpr
 - caption: Modern C++ Standard Library
   chapters: 
+  - file: smart-pointers
   - file: tuples
   - file: string-view
   - file: any
