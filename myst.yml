@@ -16,7 +16,7 @@ project:
         - file: content/class-features.md
         - file: content/move.md
         - file: content/lambda-expressions.md
-        - file: content/templates/templates.md
+        - title: Szablony
           children:
             - file: content/templates/aliasy.md
             - file: content/templates/szablony-zmiennych.md
