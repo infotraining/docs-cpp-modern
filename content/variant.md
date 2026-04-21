@@ -91,50 +91,49 @@ std::variant<std::string, bool> x("abc"); // OK, but chooses bool
 
 Przypisanie nowej wartości dla zmiennej wariantowej możemy zrealizować na dwa sposoby:
 
-```{cpp:function} template <typename T> variant& operator=(T&& x)
+* `template <typename T> variant& operator=(T&& x)`
 
-Przypisuje nową wartość do zmiennej wariantowej.
-```
+   Przypisuje nową wartość do zmiennej wariantowej.
 
-```{code-block} cpp
-std::variant<int, std::string, double> v1;
+  ```{code-block} cpp
+  std::variant<int, std::string, double> v1;
 
-v1 = 42; // v1 holds int{42}
-v1 = "text"s; // v1 holds "text"s
-v1 = 3.14; // v1 holds double{3.14}
+  v1 = 42; // v1 holds int{42}
+  v1 = "text"s; // v1 holds "text"s
+  v1 = 3.14; // v1 holds double{3.14}
 
-std::variant<int, std::string, string> v2;
-v2 = "text"s; // ERROR
+  std::variant<int, std::string, string> v2;
+  v2 = "text"s; // ERROR
 
-std::variant<std::string, bool> v3;
-v3 = "ctext"; // v3 holds bool{true}
-```
+  std::variant<std::string, bool> v3;
+  v3 = "ctext"; // v3 holds bool{true}
+  ```
 
-```{cpp:function} template <typename T, typename... Args> T& emplace(Args&&... args)
+* `template <typename T, typename... Args> T& emplace(Args&&... args)`
 
-Tworzy nową wartość (*in-place*) w istniejącej zmiennej wariantowej. 
+  Tworzy nową wartość (*in-place*) w istniejącej zmiennej wariantowej. 
 Jest jedyną możliwością przypisania wartości dla duplikatów typu na liście.                 
-```
 
-```{code-block} cpp
-class Gadget
-{
-    int id_;
-    std::string name_;
 
-    Gadget(int id, const std::string& name)
-        : id_{id}, name_{name}
-    {}
+  ```{code-block} cpp
+  class Gadget
+  {
+      int id_;
+      std::string name_;
 
-    //...
-};
+      Gadget(int id, const std::string& name)
+          : id_{id}, name_{name}
+      {}
 
-std::variant<int, Gadget, int> v;
+      //...
+  };
 
-v.emplace<Gadget>(1, "ipad"); // creates Gadget{1, "ipad"} inside variant object
-v.emplace<0>(42); // sets the first int to 42
-v.emplace<2>(665); // sets the second int to 665
-```
+  std::variant<int, Gadget, int> v;
+
+  v.emplace<Gadget>(1, "ipad"); // creates Gadget{1, "ipad"} inside variant object
+  v.emplace<0>(42); // sets the first int to 42
+  v.emplace<2>(665); // sets the second int to 665
+  ```
 
 ### Dostęp do wartości przechowywanej w zmiennej wariantowej
 
@@ -159,26 +158,24 @@ if (std::string* ptr_str = std::get_if<std::string>(&my_variant); ptr_str != nul
 
 ### Inne funkcje API dla klasy std::variant
 
-```{cpp:function} std::size_t std::variant::index() const
+* `std::size_t std::variant::index() const`
 
-Zwraca indeks (licząc od zera) typu z listy dla danego stanu zmiennej wariantowej.
-```
+  Zwraca indeks (licząc od zera) typu z listy dla danego stanu zmiennej wariantowej.
+
+  ```{code-block} cpp
+  std::variant<int, double> v = 3.14;
+  assert(v.index() == 1);
+  ```
+
+* `template <typename T> bool holds_alternative(const std::variant& v)`
+
+  Sprawdza, czy zmienna wariantowa przechowuje w danym momencie odpowiedni typ.
 
 
-```{code-block} cpp
-std::variant<int, double> v = 3.14;
-assert(v.index() == 1);
-```
-
-```{cpp:function} template <typename T> bool holds_alternative(const std::variant& v)
-
-Sprawdza, czy zmienna wariantowa przechowuje w danym momencie odpowiedni typ.
-```
-
-```{code-block} cpp
-if (std::holds_alternative<double>(v))
-    std::cout << "Holds double\n";
-```
+  ```{code-block} cpp
+  if (std::holds_alternative<double>(v))
+      std::cout << "Holds double\n";
+  ```
 
 ## Problem pustego stanu
 
