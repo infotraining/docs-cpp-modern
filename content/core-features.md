@@ -4,60 +4,61 @@
 
 C++11 wprowadza kilka nowych fundamentalnych typów danych:
 
-- typ: `[unsigned|signed] long long [int]`
-  - Gwarancja minimum 64 bitów
-  - Literał: `LL`
+- typ `[unsigned|signed] long long [int]`
+    - gwarancja co najmniej 64 bitów
+    - literał: `LL` (lub `ULL` dla typu bez znaku)
 
     ```cpp
     long long int i = 123456789012345LL;
     ```
 
-- typy dla znaków UTF16/UTF32: `char16_t`, `char32_t`
-- typ dla pustego wskaźnika `nullptr`: `nullptr_t`
+- typy znakowe dla Unicode UTF-16/UTF-32: `char16_t`, `char32_t`
+- typ dla pustego wskaźnika `nullptr`: `std::nullptr_t`
 
 ## Typy całkowite o znanym rozmiarze
 
-W C++11 wprowadzono aliasy na typy całkowite o znanym rozmiarze:
+W C++11 (nagłówek `<cstdint>`) wprowadzono aliasy na typy całkowite o określonym rozmiarze. Aliasy te znacząco upraszczają pisanie kodu, który musi być przenośny między różnymi platformami, ponieważ gwarantują, że typy te będą miały określony rozmiar na wszystkich platformach.
+
+Wszystkie aliasy są definiowane w przestrzeni nazw `std`:
 
 - `int8_t`, `int16_t`, `int32_t`, `int64_t` - typy całkowite ze znakiem
 - `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t` - typy całkowite bez znaku
-- `intptr_t`, `uintptr_t` - typy całkowite dla wskaźników mogące przechować wskaźnik na `void`
-- `intmax_t`, `uintmax_t` - największe typy całkowite dostępne w danej architekturze
+- `intptr_t`, `uintptr_t` - typy całkowite mogące przechować wskaźnik na `void*`
+- `intmax_t`, `uintmax_t` - najszersze typy całkowite dostępne na danej architekturze
 
 ```cpp
 #include <cstdint>
+#include <limits>
 
-int8_t i8 = 127;
-uint16_t ui16 = 65535;
-int32_t i32 = 2147483647;
-uint64_t ui64 = 18446744073709551615ULL;
-uintmax_t umax = 18446744073709551615ULL;
+std::int8_t i8 = 127;
+std::uint16_t ui16 = 65535;
+std::int32_t i32 = 2147483647;
+std::uint64_t ui64 = std::numeric_limits<std::uint64_t>::max();
+std::uintmax_t umax = std::numeric_limits<std::uintmax_t>::max();
 ```
 
 ## nullptr - uniwersalny pusty wskaźnik
 
-Nowe słowo kluczowe - `nullptr`
+W C++11 wprowadzono słowo kluczowe `nullptr`.
 
-- wartość dla wskaźników, które na nic nie wskazują (wartość `0`)
-- bardziej czytelny i bezpieczniejszy odpowiednik stałej `NULL/0`
-- posiada zdefiniowany przez standard typ - `std::nullptr_t` (zdefiniowany w pliku nagłówkowym `<cstddef>`)
-
-```cpp
-namespace std
-{
-    typedef decltype(nullptr) nullptr_t;
-}
-```
+- reprezentuje pusty wskaźnik (zamiast użycia stałych `0` lub `NULL`)
+- ma ściśle zdefiniowany typ `std::nullptr_t` (nagłówek `<cstddef>`)
+  
+  ```{code-block} cpp
+  using std::nullptr_t = decltype(nullptr);
+  ```
+- jest bardziej bezpieczny niż `NULL` - rozwiązuje problem z przeciążeniem funkcji przyjmujących jako argument wskaźnik lub typ całkowity
+- jest konwertowalny do wskaźników dowolnego typu, ale nie jest konwertowalny do typów całkowitych
 
 Deklaracja pustych zmiennych wskaźnikowych od C++11 powinna wyglądać:
 
 ```cpp
-int* ptr_1 = nullptr; 
+int* ptr_1 = nullptr;
 assert(ptr_1 == nullptr);
 
-// or
+// lub
 
-int* ptr_2{}; // p1 is set to 0
+int* ptr_2{}; // ptr_2 jest wyzerowany
 assert(ptr_2 == nullptr);
 ```
 
@@ -66,18 +67,19 @@ assert(ptr_2 == nullptr);
 ```cpp
 void foo(int);
 
-foo(0); // calls foo(int)
-foo(NULL); // calls foo(int)
-foo(nullptr); // compile-time error
-
+foo(0);        // wywołuje foo(int)
+foo(NULL);     // zwykle wywołuje foo(int)
+foo(nullptr);  // błąd kompilacji: nullptr nie jest typem całkowitym
 
 void bar(int);
 void bar(void*);
 
-bar(0); // calls bar(int)
-bar(NULL); // calls bar(int) if NULL is 0, ambiguous if NULL is 0L
-bar(nullptr); // calls bar(void*)
+bar(0);        // wywołuje bar(int)
+bar(NULL);     // zależne od definicji NULL (int lub błąd kompilacji)
+bar(nullptr);  // wywołuje bar(void*)
 ```
+
+W praktyce warto stosować `nullptr` we wszystkich nowych fragmentach kodu C++.
 
 ## Raw String Literals
 
