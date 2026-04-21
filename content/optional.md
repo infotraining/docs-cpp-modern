@@ -95,45 +95,44 @@ Użycie tych operatorów w sytuacji, gdy obiekt jest pusty (nie przechowuje wart
 
 Bezpieczny dostęp do przechowywanej wartości może być zrealizowany poprzez metody:
 
-```{cpp:function} const T& value()
+* `const T& value() const`
 
-zwraca wartość. Jeśli jej nie ma rzuca wyjątkiem `std::bad_optional_access`
-```
+  Zwraca wartość. Jeśli jej nie ma, rzuca wyjątkiem `std::bad_optional_access`.
 
-```{code-block} cpp
-std::optional<std::string> opt_str;
+  ```{code-block} cpp
+  std::optional<std::string> opt_str;
 
-try
-{
-    string str = opt_str.value();
-}
-catch(const std::bad_optional_access& e)
-{
-    //...
-}
-```
+  try
+  {
+      string str = opt_str.value();
+  }
+  catch(const std::bad_optional_access& e)
+  {
+      //...
+  }
+  ```
 
-```{cpp:function} template <typename U> T value_or(U&& default_value)
+* `template <typename U> T value_or(U&& default_value)`
 
-zwraca wartość lub jeśli jej nie ma, podaną jako argument wartość domyślną
-```
+  Zwraca wartość lub jeśli jej nie ma, podaną jako argument wartość domyślną.
 
-```{code-block} cpp
-#include <optional>
-#include <iostream>
-#include <cstdlib>
+  
+  ```{code-block} cpp
+  #include <optional>
+  #include <iostream>
+  #include <cstdlib>
 
-std::optional<const char*> maybe_getenv(const char* n)
-{
-    if(const char* x = std::getenv(n))
-        return x;
-    else
-        return {};
-}
+  std::optional<const char*> maybe_getenv(const char* n)
+  {
+      if(const char* x = std::getenv(n))
+          return x;
+      else
+          return {};
+  }
 
-//...
-std::cout << maybe_getenv("MYPWD").value_or("(none)") << '\n';
-```
+  //...
+  std::cout << maybe_getenv("MYPWD").value_or("(none)") << '\n';
+  ```
 
 ## Resetowanie stanu
 
