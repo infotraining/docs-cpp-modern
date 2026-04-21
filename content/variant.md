@@ -17,7 +17,7 @@ Typ wariantowy w C++17:
 
 Unie w C++ mogą przechowywać tylko typy POD:
 
-```{code-block} c++
+```{code-block} cpp
 union 
 { 
     int i; double d; 
@@ -29,7 +29,7 @@ u.i = 3; // nadpisuje u.d (OK: u.d jest typem POD)
 
 Są zatem bezużyteczne w programowaniu obiektowym:
 
-```{code-block} c++
+```{code-block} cpp
 union 
 { 
     int i; 
@@ -53,7 +53,7 @@ Plik nagłówkowy: `<variant>`
 
 Deklarując typ wariantowy `std::variant` trzeba podać zestaw typów, które będą mogły być reprezentowane w typie wariantowym.
 
-```{code-block} c++
+```{code-block} cpp
 std::variant<int, std::string, double> my_variant1; // holds an int with a default value 0
 
 std::variant<int, std::string, double> my_variant2(3.14); // holds a double 3.14
@@ -68,7 +68,7 @@ z listy.
 
 Jeśli pierwszy typ z listy nie jest domyślnie konstruowalny, można użyć tagu - `std::monostate`:
 
-```{code-block} c++
+```{code-block} cpp
 struct S
 {
     S(int v) : value{v} 
@@ -83,7 +83,7 @@ std::variant<monostate, S, int> v2; // OK - now v2 must be assigned
 
 Konstruktor typu wariantowego może przeprowadzać konwersje, co może dać zaskakujący efekt:
 
-```{code-block} c++
+```{code-block} cpp
 std::variant<std::string, bool> x("abc"); // OK, but chooses bool
 ```
 
@@ -91,50 +91,49 @@ std::variant<std::string, bool> x("abc"); // OK, but chooses bool
 
 Przypisanie nowej wartości dla zmiennej wariantowej możemy zrealizować na dwa sposoby:
 
-```{cpp:function} template <typename T> variant& operator=(T&& x)
+* `template <typename T> variant& operator=(T&& x)`
 
-Przypisuje nową wartość do zmiennej wariantowej.
-```
+   Przypisuje nową wartość do zmiennej wariantowej.
 
-```{code-block} c++
-std::variant<int, std::string, double> v1;
+  ```{code-block} cpp
+  std::variant<int, std::string, double> v1;
 
-v1 = 42; // v1 holds int{42}
-v1 = "text"s; // v1 holds "text"s
-v1 = 3.14; // v1 holds double{3.14}
+  v1 = 42; // v1 holds int{42}
+  v1 = "text"s; // v1 holds "text"s
+  v1 = 3.14; // v1 holds double{3.14}
 
-std::variant<int, std::string, string> v2;
-v2 = "text"s; // ERROR
+  std::variant<int, std::string, string> v2;
+  v2 = "text"s; // ERROR
 
-std::variant<std::string, bool> v3;
-v3 = "ctext"; // v3 holds bool{true}
-```
+  std::variant<std::string, bool> v3;
+  v3 = "ctext"; // v3 holds bool{true}
+  ```
 
-```{cpp:function} template <typename T, typename... Args> T& emplace(Args&&... args)
+* `template <typename T, typename... Args> T& emplace(Args&&... args)`
 
-Tworzy nową wartość (*in-place*) w istniejącej zmiennej wariantowej. 
+  Tworzy nową wartość (*in-place*) w istniejącej zmiennej wariantowej. 
 Jest jedyną możliwością przypisania wartości dla duplikatów typu na liście.                 
-```
 
-```{code-block} c++
-class Gadget
-{
-    int id_;
-    std::string name_;
 
-    Gadget(int id, const std::string& name)
-        : id_{id}, name_{name}
-    {}
+  ```{code-block} cpp
+  class Gadget
+  {
+      int id_;
+      std::string name_;
 
-    //...
-};
+      Gadget(int id, const std::string& name)
+          : id_{id}, name_{name}
+      {}
 
-std::variant<int, Gadget, int> v;
+      //...
+  };
 
-v.emplace<Gadget>(1, "ipad"); // creates Gadget{1, "ipad"} inside variant object
-v.emplace<0>(42); // sets the first int to 42
-v.emplace<2>(665); // sets the second int to 665
-```
+  std::variant<int, Gadget, int> v;
+
+  v.emplace<Gadget>(1, "ipad"); // creates Gadget{1, "ipad"} inside variant object
+  v.emplace<0>(42); // sets the first int to 42
+  v.emplace<2>(665); // sets the second int to 665
+  ```
 
 ### Dostęp do wartości przechowywanej w zmiennej wariantowej
 
@@ -144,7 +143,7 @@ Jeśli wywołanie `get(v)` okaże się nieskuteczne (zmienna wariantowa zawiera 
 
 Aby uniknąć zgłaszania niepowodzenia w postaci wyjątku, należy wywołać funkcję `std::get_if(v)` przekazując jako argument wskaźnik do zmiennej wariantowej. W razie niezgodności typów, zwrócony zostanie `nullptr`.
 
-```{code-block} c++
+```{code-block} cpp
 std::variant<int, std::string, double> my_variant{"text"s};
 
 std::string s1 = std::get<std::string>(my_variant);  // OK
@@ -159,26 +158,24 @@ if (std::string* ptr_str = std::get_if<std::string>(&my_variant); ptr_str != nul
 
 ### Inne funkcje API dla klasy std::variant
 
-```{cpp:function} std::size_t std::variant::index() const
+* `std::size_t std::variant::index() const`
 
-Zwraca indeks (licząc od zera) typu z listy dla danego stanu zmiennej wariantowej.
-```
+  Zwraca indeks (licząc od zera) typu z listy dla danego stanu zmiennej wariantowej.
+
+  ```{code-block} cpp
+  std::variant<int, double> v = 3.14;
+  assert(v.index() == 1);
+  ```
+
+* `template <typename T> bool holds_alternative(const std::variant& v)`
+
+  Sprawdza, czy zmienna wariantowa przechowuje w danym momencie odpowiedni typ.
 
 
-```{code-block} c++
-std::variant<int, double> v = 3.14;
-assert(v.index() == 1);
-```
-
-```{cpp:function} template <typename T> bool holds_alternative(const std::variant& v)
-
-Sprawdza, czy zmienna wariantowa przechowuje w danym momencie odpowiedni typ.
-```
-
-```{code-block} c++
-if (std::holds_alternative<double>(v))
-    std::cout << "Holds double\n";
-```
+  ```{code-block} cpp
+  if (std::holds_alternative<double>(v))
+      std::cout << "Holds double\n";
+  ```
 
 ## Problem pustego stanu
 
@@ -189,7 +186,7 @@ W takim przypadku:
 * metoda `valueless_by_exception()` zwraca `true`
 * a wywołanie metody `index()` zwraca wartość `std::variant_npos`
 
-```{code-block} c++
+```{code-block} cpp
 struct S
 {
     operator int()
@@ -221,7 +218,7 @@ Wizytacja odbywa się za pośrednictwem funkcji `std::visit(wizytator, zmienna-w
 
 Klasa wizytatora:
 
-```{code-block} c++
+```{code-block} cpp
 class PrintVisitor
 {
 public:
@@ -249,7 +246,7 @@ std::visit(PrintVisitor{}, var);
 
 Do wizytacji można również wykorzystać lambdę generyczną:
 
-```{code-block} c++
+```{code-block} cpp
 std::visit([](auto&& value) { std::cout << value << "\n" }, var);
 ```
 
@@ -257,7 +254,7 @@ Istnieje możliwość zbudowania wizytora w miejscu wizytacji (*in-place*). Do t
 funkcji wariadycznej `make_inline_visitor()`, której implementacja korzysta z *variadic templates*.
 Funkcja ta pozwoli utworzyć obiekt funkcyjny składający się z przeciążonych operatorów wywołania funkcji, który zostanie wykorzystany do wizytacji zmiennej wariantowej.
 
-```{code-block} c++
+```{code-block} cpp
 template <typename... Ts>
 struct overloaded : Ts...
 {

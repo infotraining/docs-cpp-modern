@@ -13,7 +13,7 @@
 
 Przykład (potencjalnie) nieefektywnego kodu w C++98:
 
-```c++
+```cpp
 void create_and_insert(std::vector<string>& coll)
 {
     std::string str = "text";
@@ -49,7 +49,7 @@ Aby umożliwić implementację semantyki przenoszenia C++11 wykorzystuje podzia�
 
 Przykłady:
 
-```c++
+```cpp
 double dx;
 double* ptr; // dx and ptr are lvalues
 
@@ -700,7 +700,7 @@ W C++17 wymagane jest, aby inicjalizacja zmiennych z wartości tymczasowych (*pr
 
 Przykład:
 
-```c++
+```cpp
 class CopyMoveDisabled
 {
 public:
@@ -713,7 +713,7 @@ public:
 
 - *Copy elision* dla zwracanych wartości:
 
-```c++
+```cpp
 CopyMoveDisabled copy_elided()
 {
     return CopyMoveDisabled{42};
@@ -724,7 +724,7 @@ CopyMoveDisabled cmd = copy_elided(); // OK since C++17
 
 - *Copy elision* dla argumentów funkcji:
 
-```c++
+```cpp
 void copy_elided(CopyMoveDisabled arg)
 {
     cout << "arg: " << arg.value << endl;
@@ -739,7 +739,10 @@ Wciąż **nie jest wymagana** optymalizacja kopiowań dla NRVO (gdy zwracane są
 
 ### Kategorie wartości w C++17
 
-![image](images/expression-categories-cpp-17.svg)
+```{image} ./images/expression-categories-cpp-17.svg
+:alt: Expression categories in C++17
+:align: center
+```
 
 W C++17 każde wyrażenie należy do jednej z kategorii:
 
@@ -762,7 +765,7 @@ Konwersja **prvalue-to-xvalue**:
 - przy próbie dostępu do składowej
 - przy konwersji do klasy bazowej
 
-```c++
+```cpp
 MyClass create()
 {
     return MyClass(); // returns prvalue (no temporary object yet)

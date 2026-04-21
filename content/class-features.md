@@ -31,7 +31,7 @@ C++11 daje możliwość jawnego zadeklarowania funkcji specjalnych jako domyśln
 
 Deklaracja `default` - wymusza na kompilatorze generację domyślnej implementacji dla deklaracji specyfikowanej przez użytkownika (np. generacja domyślnego konstruktora w przypadku, gdy istnieją inne konstruktory przyjmujące parametry)
 
-```c++
+```cpp
 class Gadget
 {
 public:
@@ -48,7 +48,7 @@ Operacje zadeklarowane jako `default` są traktowane jako *user-declared*.
 
 W efekcie klasa:
 
-```c++
+```cpp
 class Any // default copy semantics enabled
 {
     std::string name;
@@ -57,7 +57,7 @@ class Any // default copy semantics enabled
 
 nie jest taka sama jak klasa zaimplementowana w poniższy sposób:
 
-```c++
+```cpp
 class Any  // default copy semantics deprecated in C++14 (and later probably disabled)
 {
     std::string name;
@@ -72,7 +72,7 @@ Deklaracja `delete` - usuwa wskazaną funkcję lub funkcję składową z interfe
 
 Aby zablokować kopiowanie obiektów danego typu w C++11 można wykorzystać następujący idiom:
 
-```c++
+```cpp
 // prevents object from making copies and from move operations
 class NoCopyable
 {
@@ -87,7 +87,7 @@ public:
 
 Usuwanie funkcji z interfejsu przy pomocy słowa `delete` nie jest ograniczone tylko do funkcji specjalnych klas. Zastosowanie `delete` dla funkcji wolnej umożliwia uniknięcie niejawnej konwersji argumentów wywołania funkcji:
 
-```c++
+```cpp
 void integral_only(int a)
 {
     cout << "integral_only: " << a << endl;
@@ -113,7 +113,7 @@ Wartość użyta do inicjalizacji będzie przypisana składowej, jeśli wywoływ
 
 Operacje kopiowania lub przenoszenia ignorują wartości domyślne
 
-```c++
+```cpp
 int default_id()
 {
     static int id = 0;
@@ -157,7 +157,7 @@ Użycie domyślnej inicjalizacji wewnątrz struktury powoduje, że przestaje ona
 
 Konstruktor może wywoływać inne konstruktory tej samej klasy.
 
-```c++
+```cpp
 class Item
 {
 private:
@@ -189,7 +189,7 @@ Obiekt jest uznany za poprawnie skonstruowany, gdy pierwszy konstruktor wywołan
 
 Deklaracja `using` może być użyta w połączeniu z konstruktorami klasy bazowej. Powoduje to niejawne deklaracje konstruktorów klasy pochodnej, które przyjmują takie same listy paramtrów co konstruktory klasy bazowej. Ich implementacja polegająca na wywołaniu wersji z klasy bazowej jest generowana tylko wtedy, gdy są one rzeczywiście użyte.
 
-```c++
+```cpp
 class Base
 {
 public:
@@ -209,7 +209,7 @@ public:
 
 Użycie dziedziczenia konstruktorów w klasach pochodnych, które dodają nowe pola może być ryzykowne:
 
-```c++
+```cpp
 class Augmented : public Derived
 {
 public:
@@ -228,7 +228,7 @@ Augmented a {10}; // a.name_ == "" - default init
 
 Słowo `override` ma specjalne znaczenie w deklaracji klas i powoduje sprawdzenie na etapie kompilacji, czy nadpisywana metoda jest zadeklarowana w taki sam sposób w klasie bazowej.
 
-```c++
+```cpp
 class Base
 {
 public:
@@ -261,7 +261,7 @@ public:
 
 Od C++11 możemy zablokować dziedziczenie po klasie słowem `final`:
 
-```c++
+```cpp
 class NoInheritable final
 {
     // ...
@@ -275,7 +275,7 @@ class Derived : public NoInheritable // error - base marked as final
 
 Można też określić, że implementacja metody wirtualnej jest ostateczna i nie powinna być nadpisywana:
 
-```c++
+```cpp
 class Base
 {
 public:
@@ -307,7 +307,7 @@ W C++17 statyczne zmienne oznaczone jako `inline` są uznawane jako definicja ta
 
 - Plik `gadget.hpp`
 
-```c++
+```cpp
 class Gadget
 {
 public:
@@ -336,7 +336,7 @@ private:
 
 - Plik `a.cpp`
 
-```c++
+```cpp
 #include "gadget.hpp"
 #include <iostream>
 
@@ -348,7 +348,7 @@ int main()
 
 - Plik `b.cpp`
 
-```c++
+```cpp
 #include "gadget.hpp"
 
 void bootstrap(GadgetFactory& gf)
@@ -365,7 +365,7 @@ Zmienne statyczne `inline` mogą być:
 
 Przykład (plik `monitor.hpp`):
 
-```c++
+```cpp
 class Monitor
 {
 public:

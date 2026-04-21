@@ -43,7 +43,8 @@ Najczęściej używamy tej stałej do warunkowego kompilowania kodu w zależnoś
 ```cpp
 #include <iostream>
 
-int main() {
+int main() 
+{
     // Check the value of __cplusplus to determine the C++ standard version
     #if __cplusplus == 199711L
         std::cout << "C++98 or C++03" << std::endl;
