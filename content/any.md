@@ -19,80 +19,58 @@ Typy przechowywane w `std::any` muszą spełniać następujące warunki:
 
 ## Interfejs klasy std::any
 
-```{cpp:function} any()
+* `any()` - domyślny konstruktor, tworzący pusty egzemplarz obiektu klasy `any`
 
-domyślny konstruktor, tworzący pusty egzemplarz obiektu klasy `any`
-```
 
-```{cpp:function} any(const any& other)
+* `any(const any& other)` - konstruktor kopiujący
 
-konstruktor kopiujący
-```
+* `any(any&& other)` - konstruktor przenoszący
 
-```{cpp:function} any(any&& other)
 
-konstruktor przenoszący
-```
+* `template <typename ValueType> any(ValueType&& value)` - szablonowa wersja konstruktora do tworzenia obiektu przechowywującego kopię argumentu typu `ValueType`
 
-```{cpp:function} template <typename ValueType> any(ValueType&& value)
+* `template <typename ValueType, class... Args> std::decay_t<ValueType>& emplace(Args&&... args)`
+  
+  Zmienia przechowywany obiekt na nowy typu `ValueType` konstruowany z argumentów `args`
 
-szablonowa wersja konstruktora do tworzenia obiektu przechowywującego kopię argumentu typu `ValueType`
-```
+* `void swap(any& other)`
 
-```{cpp:function} template <typename ValueType, class... Args> std::decay_t<ValueType>& emplace(Args&&... args)
+  Wymienia wartości przechowywane pomiędzy dwoma obiektami klasy `any`
 
-Zmienia przechowywany obiekt na nowy typu `ValueType` konstruowany z argumentów `args`
-```
+* `any& operator=(const any& other)`
 
-```{cpp:function} void swap(any& other)
+  Jeśli obiekt nie jest pusty, operator przypisania powoduje usunięcie przechowywanej wartości i przyjęcie kopii wartości przechowywanej w `other`
 
-wymienia wartości przechowywane pomiędzy dwoma obiektami klasy `any`
-```
 
-```{cpp:function} any& operator=(const any& other)
+* `any& operator=(any&& other)` - przenosząca wersja operatora przypisania
 
-jeśli obiekt nie jest pusty, operator przypisania powoduje usunięcie przechowywanej wartości i przyjęcie kopii wartości przechowywanej w `other`
-```
 
-```{cpp:function} any& operator=(any&& other)
+* `template <typename ValueType> any& operator=(ValueType&& value)` - szablonowa wersja operatora przypisania
 
-przenosząca wersja operatora przypisania
-```
+* `bool has_value() const`
 
-```{cpp:function} template <typename ValueType> any& operator=(ValueType&& value)
+  Sygnalizuje stan egzemplarza `any`, zwracając `true`, jeśli egzemplarz przechowuje jakąkolwiek wartość
 
-szablonowa wersja operatora przypisania
-```
+* `const std::type_info& type() const`
 
-```{cpp:function} bool has_value() const
+  Opisuje typ przechowywanej wartości
 
-sygnalizuje stan egzemplarza `any`, zwracając `true`, jeśli egzemplarz przechowuje jakąkolwiek wartość
-```
-
-```{cpp:function} const std::type_info& type() const
-
-opisuje typ przechowywanej wartości
-```
-
-```{cpp:function} void reset()
-
-jeśli obiekt nie jest pusty, przechowywany obiekt jest niszczony
-```
+* `void reset()` - jeśli obiekt nie jest pusty, przechowywany obiekt jest niszczony
 
 ## Funkcje zewnętrzne
 
 Dwie wersje funkcji szablonowej `any_cast`:
 
-```{cpp:function} template<typename ValueType> ValueType any_cast(const any& operand)
+* `template<typename ValueType> ValueType any_cast(const any& operand)`
 
-funkcja `any_cast` udostępnia wartość przechowywaną w obiekcie `any`. 
-Argumentem wywołania jest obiekt `any`, którego wartość ma zostać wyłuskana. Jeśli parametr szablonu funkcji `ValueType` nie odpowiada właściwemu typowi przechowywanego elementu rzucany jest wyjątek `std::bad_any_cast`
-```
+  funkcja `any_cast` udostępnia wartość przechowywaną w obiekcie `any`. 
+  Argumentem wywołania jest obiekt `any`, którego wartość ma zostać wyłuskana. Jeśli parametr szablonu funkcji `ValueType` nie odpowiada właściwemu typowi przechowywanego elementu rzucany jest wyjątek `std::bad_any_cast`
 
-```{cpp:function} template<typename ValueType> ValueType* any_cast(any* operand)
 
-przeciążona wersja `any_cast`, przyjmująca wskaźniki obiektów i zwracająca typowane wskaźniki wartości przechowywanych w `any`. Jeśli typ `ValueType` nie odpowiada typowi właściwemu typowi wartości przechowywanej, zwracany jest wskaźnik pusty (`nullptr`).
-```
+* `template<typename ValueType> ValueType* any_cast(any* operand)`
+
+  przeciążona wersja `any_cast`, przyjmująca wskaźniki obiektów i zwracająca typowane wskaźniki wartości przechowywanych w `any`. Jeśli typ `ValueType` nie odpowiada typowi właściwemu typowi wartości przechowywanej, zwracany jest wskaźnik pusty (`nullptr`).
+
 
 ## Stosowanie std::any
 

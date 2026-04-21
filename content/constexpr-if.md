@@ -6,7 +6,7 @@ Działanie `constexpr if` polega na wyborze podczas kompilacji bloku instrukcji 
 
 Składnia:
 
-```c++
+```cpp
 if constexpr(condition)
 {
    // ...
@@ -21,7 +21,7 @@ else
 
 Przykład w C++11:
 
-```c++
+```cpp
 template<class T>
 auto compute(T x) -> enable_if_t<supportsAPI<T>::value, int>
 {
@@ -37,7 +37,7 @@ auto compute(T x) -> enable_if_t<!supportsAPI<T>::value, int>
 
 Powyższy kod może być dużo prościej wyrażony w C++17 za pomocą `constexpr if`:
 
-```c++
+```cpp
 template<class T>
 auto compute(T x) 
 {
@@ -56,7 +56,7 @@ auto compute(T x)
 
 Kod (grupa instrukcji), który jest ominięty przy kompilacji (tzw. *discarded statement*), nie jest instancjonowany, ale musi być poprawny składniowo. Mechanizm *constexpr if* zasadniczo odpowiada pierwszemu etapowi przetwarzania szablonów przez kompilator (faza definicji).
 
-```c++
+```cpp
 template <typename T>
 void foo(T obj);
 
@@ -87,7 +87,7 @@ Powyższy kod nigdy się nie skompiluje.
 2. Faza druga:
     - kod zależny od parametru szablonu jest podwójnie sprawdzany
 
-```c++
+```cpp
 template <typename T>
 void foo(T t)
 {
