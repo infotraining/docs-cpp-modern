@@ -13,14 +13,16 @@ project:
       children:
         - file: content/cpp-standards.md
         - file: content/core-features.md
-          children:
-            - file: content/constexpr-if.md
         - file: content/class-features.md
         - file: content/move.md
         - file: content/lambda-expressions.md
-        - file: content/templates.md
+        - file: content/templates/templates.md
           children:
-            - file: content/ctad.md
+            - file: content/templates/aliasy.md
+            - file: content/templates/szablony-zmiennych.md
+            - file: content/templates/variadic-templates.md
+            - file: content/templates/fold-expressions-cpp17.md
+            - file: content/templates/ctad.md
         - file: content/constexpr.md
     - title: Modern C++ Standard Library
       children:
