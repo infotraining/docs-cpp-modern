@@ -739,7 +739,10 @@ Wciąż **nie jest wymagana** optymalizacja kopiowań dla NRVO (gdy zwracane są
 
 ### Kategorie wartości w C++17
 
-![image](images/expression-categories-cpp-17.svg)
+```{image} ./images/expression-categories-cpp-17.svg
+:alt: Expression categories in C++17
+:align: center
+```
 
 W C++17 każde wyrażenie należy do jednej z kategorii:
 
