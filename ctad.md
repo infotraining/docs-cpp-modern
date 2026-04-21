@@ -2,7 +2,7 @@
 
 C++17 wprowadza mechanizm dedukcji argumentów szablonu klasy (*Class Template Argument Deduction*). Typy parametrów szablonu klasy mogą być dedukowane na podstawie argumentów przekazanych do konstruktora tworzonego obiektu.
 
-```c++
+```cpp
 template <typename T>
 class complex
 {
@@ -28,7 +28,7 @@ Nie można częściowo dedukować argumentów szablonu klasy. Należy wyspecyfik
 
 Praktyczny przykład dedukcji argumentów szablonu klasy:
 
-```c++
+```cpp
 std::mutex mtx;
 
 std::lock_guard lk{mtx}; // deduces std::lock_guard<std::mutex>
@@ -42,7 +42,7 @@ Daje to możliwość poprawy/modyfikacji domyślnego procesu dedukcji.
 
 Dla szablonu:
 
-```c++
+```cpp
 template <typename T>
 class S
 {
@@ -56,7 +56,7 @@ public:
 
 Podpowiedź dedukcyjna musi zostać umieszczona w tym samym zakresie (przestrzeni nazw) i może mieć postać:
 
-```c++
+```cpp
 template <typename T> S(T) -> S<T>; // deduction guide
 ```
 
@@ -68,7 +68,7 @@ gdzie:
 
 Użycie podpowiedzi:
 
-```c++
+```cpp
 S x{12}; // OK -> S<int> x{12};
 S y(12); // OK -> S<int> y(12);
 auto z = S{12}; // OK -> auto z = S<int>{12};
@@ -80,13 +80,13 @@ W deklaracji `S x{12};` specyfikator `S` jest nazywany symbolem zastępczym dla 
 
 W przypadku użycia symbolu zastępczego dla klasy, nazwa zmiennej musi zostać podana jako następny element składni. W rezultacie poniższa deklaracja jest błędem składniowym:
 
-```c++
+```cpp
 S* p = &x; // ERROR - syntax not permitted
 ```
 
 Dany szablon klasy może mieć wiele konstruktorów oraz wiele podpowiedzi dedukcyjnych:
 
-```c++
+```cpp
 template <typename T>
 struct Data
 {
@@ -136,7 +136,7 @@ Data d8{d6, d7}; // OK -> Data<vector<Data<vector<int>>>>
 
 Podpowiedzi dedukcyjne nie są szablonami funkcji - służą jedynie dedukowaniu argumentów szablonu i nie są wywoływane. W rezultacie nie ma znaczenia czy argumenty w deklaracjach dedukcyjnych są przekazywane przez referencje, czy nie.
 
-```c++
+```cpp
 template <typename T> 
 struct X
 {
@@ -166,7 +166,7 @@ Ponieważ często podpowiedź dedukcyjna jest potrzebna dla każdego konstruktor
 
 Dla klasy szablonowej rozważanej powyżej:
 
-```c++
+```cpp
 template <typename T>
 class S
 {
@@ -180,7 +180,7 @@ public:
 
 niejawna podpowiedź dedukcyjna będzie wyglądać następująco:
 
-```c++
+```cpp
 template <typename T> S(T) -> S<T>; // implicit deduction guide
 ```
 
@@ -190,7 +190,7 @@ W rezultacie programista nie musi implementować jej jawnie.
 
 Rozważmy następujący przypadek dedukcji:
 
-```c++
+```cpp
 S x{42}; // x has type S<int>
 
 S y{x};
@@ -203,7 +203,7 @@ W obu przypadkach dedukowany typ zmiennych `y` i `z` to `S<int>`. Mechanizm dedu
 
 W niektórych przypadkach może być to zaskakujące i kontrowersyjne:
 
-```c++
+```cpp
 std::vector v{1, 2, 3}; // vector<int>
 std::vector data1{v, v}; // vector<vector<int>>
 std::vector data2{v}; // vector<int>!
@@ -217,7 +217,7 @@ Jeśli szablon klasy jest agregatem, to mechanizm automatycznej dedukcji argumen
 
 Bez podpowiedzi dedukcyjnej dedukcja dla agregatów nie działa:
 
-```c++
+```cpp
 template <typename T>
 struct Aggregate1
 {
@@ -231,7 +231,7 @@ Aggregate1 agg3 = 3.14; // ERROR
 
 Gdy napiszemy dla agregatu podpowiedź, to możemy zacząć korzystać z mechanizmu dedukcji:
 
-```c++
+```cpp
 template <typename T>
 struct Aggregate2
 {
@@ -254,7 +254,7 @@ Dla wielu klas szablonowych z biblioteki standardowej dodano podpowiedzi dedukcy
 
 Dla pary STL dodana w standardzie podpowiedź to:
 
-```c++
+```cpp
 template<class T1, class T2>
 pair(T1, T2) -> pair<T1, T2>;
 
@@ -272,7 +272,7 @@ pair p4{1, tab}; // -> pair<int, int*>
 
 Szablon `std::tuple` jest traktowany podobnie jak `std::pair`:
 
-```c++
+```cpp
 template<class... UTypes>
 tuple(UTypes...) -> tuple<UTypes...>;
 
@@ -291,7 +291,7 @@ tuple t1{x, &x, cref_x, "hello", "world"s}; -> tuple<int, int*, int, const char*
 
 Klasa `std::optional` jest traktowana podobnie do pary i krotki.
 
-```c++
+```cpp
 template<class T> optional(T) -> optional<T>;
 
 optional o1(3); // -> optional<int>
@@ -302,7 +302,7 @@ optional o2 = o1; // -> optional<int>
 
 Dedukcja dla argumentów konstruktora będących wskaźnikami jest zablokowana:
 
-```c++
+```cpp
 int* ptr = new int{5};
 unique_ptr uptr{ip}; // ERROR - ill-formed (due to array type clash)
 ```
@@ -311,18 +311,18 @@ Wspierana jest dedukcja przy konwersjach:
 
 - z `weak_ptr`/`unique_ptr` do `shared_ptr`:
 
-    ```c++
+    ```cpp
     template <class T> shared_ptr(weak_ptr<T>) ->  shared_ptr<T>;
     template <class T, class D> shared_ptr(unique_ptr<T, D>) ->  shared_ptr<T>;
     ```
 
 - z `shared_ptr` do `weak_ptr`
 
-    ```c++
+    ```cpp
     template<class T> weak_ptr(shared_ptr<T>) -> weak_ptr<T>;
     ```
 
-```c++
+```cpp
 unique_ptr<int> uptr = make_unique<int>(3);
 
 shared_ptr sptr = move(uptr); -> shared_ptr<int>
@@ -336,7 +336,7 @@ shared_ptr sptr2{wptr}; // -> shared_ptr<int>
 
 Dozwolone jest dedukowanie sygnatur funkcji dla `std::function`:
 
-```c++
+```cpp
 int add(int x, int y)
 {
     return x + y;
@@ -353,13 +353,13 @@ f2("Hello");
 
 Dla kontenerów standardowych dozwolona jest dedukcja typu kontenera dla konstruktora akceptującego parę iteratorów:
 
-```c++
+```cpp
 vector<int> vec{ 1, 2, 3 };
 list lst(vec.begin(), vec.end()); // -> list<int>
 ```
 
 Dla `std::array` dozwolona jest dedukcja z sekwencji:
 
-```c++
+```cpp
 std::array arr1{ 1, 2, 3 }; // -> std::array<int, 3>
 ```

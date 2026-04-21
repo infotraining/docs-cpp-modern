@@ -1,0 +1,40 @@
+version: 1
+project:
+  title: Nowoczesne programowanie w C++
+  authors:
+    - name: Krystian Piękoś - Infotraining
+  exports:
+    - format: pdf
+      template: plain_latex_book
+      output: exports/cpp-modern.pdf
+  toc:
+    - file: index.md
+    - title: Modern C++ Core
+      children:
+        - file: cpp-standards.md
+        - file: core-features.md
+          children:
+            - file: constexpr-if.md
+        - file: class-features.md
+        - file: move.md
+        - file: lambda-expressions.md
+        - file: templates.md
+          children:
+            - file: ctad.md
+        - file: constexpr.md
+    - title: Modern C++ Standard Library
+      children:
+        - file: smart-pointers.md
+        - file: tuples.md
+        - file: string-view.md
+        - file: any.md
+        - file: optional.md
+        - file: variant.md
+site:
+  template: book-theme
+  options:
+    style: ./css/custom.css
+    logo: ./images/logo-infotraining-light.svg     # path to your logo, shown top left at site
+    logo_dark: ./images/logo-infotraining-dark.svg # path to your logo for dark mode, shown top left at site
+    folders: false
+    hide_authors: true

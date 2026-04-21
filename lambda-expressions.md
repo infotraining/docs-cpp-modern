@@ -12,13 +12,13 @@ Każde wyrażenie lambda powoduje utworzenie przez kompilator unikalnej **klasy 
 
 Minimalne wyrażenie lambda:
 
-```c++
+```cpp
 [] { std::cout << "Simple lambda expression\n"; }
 ```
 
 Lambdy mogą przyjmować parametry, a także zwracać wartość:
 
-```c++
+```cpp
 auto l = [](int x, int y) { return x + y; };
 
 auto result = l(2, 3); // result == 5
@@ -30,7 +30,7 @@ Jeśli implementacja lambdy zawiera tylko instrukcję `return` typem zwracanym l
 
 W każdym innym przypadku (w C++11) należy zadeklarować typ zwracany:
 
-```c++
+```cpp
 [](bool condition) -> int { 
     if (condition) 
         return 1;
@@ -43,7 +43,7 @@ Od C++14 typ zwracany dla lambdy jest automatycznie dedukowany.
 
 Wygodnie jest użyć lambd do tworzenia predykatów lub funktorów wymaganych przez algorytmy standardowe (na przykład w funkcji `std::sort`):
 
-```c++
+```cpp
 std::array<double, 6> values = { 5.0, 4.0, -1.4, 7.9, -8.22, 0.4 };
 
 // sortowanie wg wartości bezwzględnych
@@ -65,7 +65,7 @@ Do przechwytywania służy para nawiasów kwadratowych `[]`, w których możemy 
 - `[]` puste nawiasy oznaczają, że wewnątrz lambdy nie można użyć jakiejkolwiek nazwy z zewnętrznego zakresu
 - `[&]` niejawne przechwycenie przez referencję. Lambda ma dostęp do odczytu i zapisu zmiennych z zakresu w którym została utworzona. Obiekt domknięcia przechowuje referencje do zewnętrznych zmiennych.
 
-    ```c++
+    ```cpp
     std::vector<int> vec;
 
     auto pusher = [&] (int x) { vec.push_back(x); };
@@ -77,7 +77,7 @@ Do przechwytywania służy para nawiasów kwadratowych `[]`, w których możemy 
 
 - `[=]` niejawne przechwycenie przez wartość. Mogą być użyte wszystkie nazwy z zewnętrznego zakresu. Nazwy te odnoszą się do kopii lokalnych zmiennych. Ich wartość jest taka, jaka była w momencie tworzenia obiektu domknięcia.
 
-    ```c++
+    ```cpp
     int factor = 5;
 
     auto multiply_by_factor = [=](int x) { return x * factor; };
@@ -89,7 +89,7 @@ Do przechwytywania służy para nawiasów kwadratowych `[]`, w których możemy 
 
 - `[capture-list]` jawne przechwycenie zmiennych wynienionych na liście. Domyślnie wymienione zmienne są przechwytywane przez wartość. Jeśli nazwy zmiennej jest poprzedzona przez `&` oznacza to przechwycenie przez referencję (np. `[x, y, &z]`).
 
-    ```c++
+    ```cpp
     int counter{};
     auto increment = [&counter] { ++counter; }
 
@@ -97,7 +97,7 @@ Do przechwytywania służy para nawiasów kwadratowych `[]`, w których możemy 
     assert(counter == 1);
     ```
 
-    ```c++
+    ```cpp
     std::vector<int> v = { 1, 2, 3, 4, 5 };
 
     int even_count = 0;
@@ -124,7 +124,7 @@ Domyślnie obiekty domknięć są *immutable*. Domyślnie przechwycone przez wyr
 
 Jeśli lambda zostanie oznaczona jako `mutable`, to może ona modyfikować przechwycone przez wartość zmienne. Tym samym można modyfikować stan obiektu domknięcia.
 
-```c++
+```cpp
 auto create_generator(int seed)
 {
     return [seed]() mutable {
@@ -142,7 +142,7 @@ Standard nie definiuje w jaki sposób wyrażenia lambda zostaną zaimplementowan
 
 Aby określić typ klasy domknięcia należy użyć operatora `decltype()`:
 
-```c++
+```cpp
 auto compare = [](const std::unique_ptr<int>&a , const std::unique_ptr<int>& b) { return *a < *b; };
 
 std::set<std::unique_ptr<int>, decltype(compare)> numbers(compare);
@@ -159,7 +159,7 @@ numbers.emplace(std::make_unique<int>(30));
 
 Jeśli chcemy przechować obiekt domknięcia w zmiennej lokalnej najlepiej wykorzystać mechanizm dedukcji typu `auto`. Typ lambdy jest wtedy automatycznie dedukowany przez kompilator.
 
-```c++
+```cpp
 int threshold = 42;
 auto less_than_comp = [threshold](int x) { return x < threshold; };
 
@@ -171,7 +171,7 @@ assert(std::any_of(begin(vec), end(vec), less_than_comp); // passing stored clos
 
 Obiekty domknięć, które nie przechwytują niczego (mają puste nawiasy []) mogą być przypisywane do wskaźników do funkcji:
 
-```c++
+```cpp
 using callback_t = void(*)(const std::string& msg);
 
 callback_t call_me = [](const std::string& msg) { std::cout << "Print: " << msg << "\n"; };
@@ -183,7 +183,7 @@ call_me();
 
 Innym mechanizmem przechowania lub przekazania lambdy jako parametr jest użycie `std::function` - nowego wrappera pozwalającego przechowywać obiekty wywoływalne (*callable*) - lambdy, funktory oraz wskaźniki do funkcji.
 
-```c++
+```cpp
 Logger logger;
 
 queue<std::function<void()>> work_queue;
@@ -213,7 +213,7 @@ Zalecanym mechanizmem typowania lambd jest zatem `auto`.
 
 Jeśli chcemy przekazać obiekt domknięcia jako parameter funkcji, to najlepszym sposobem jest wykorzystanie szablonu funkcji:
 
-```c++
+```cpp
 template <typename F>
 void caller(F f)
 {
@@ -227,7 +227,7 @@ caller([](const std::string& msg) { std::cout << msg << "\n"; });
 
 Funkcje lambda można zagnieżdżać.
 
-```c++
+```cpp
 auto timestwoplusthree = [](int x) { return [](int y) { return y * 2; }(x) + 3; };
 
 assert(timestwoplusthree(5) == 13);
@@ -237,7 +237,7 @@ assert(timestwoplusthree(5) == 13);
 
 Definiując wyrażenie lambda wewnątrz metody zwykle chcemy przechwycić składowe klasy. Należy w tym celu użyć składni `[this]`, która powoduje przechwycenie wskaźnika `this` obiektu:
 
-```c++
+```cpp
 class Scaler
 {
 public:
@@ -268,13 +268,13 @@ W C++11 parametry wyrażeń lambda musiały być zadeklarowane z użyciem konkre
 
 C++14 daje możliwość zadeklarowania typu parametru jako `auto` (*generic lambda*).
 
-```c++
+```cpp
 auto lambda = [](const auto& x, const auto& y) { return x + y; }
 ```
 
 Powoduje to dedukcję typu parametru lambdy w ten sam sposób w jaki dedukowane są typy argumentów szablonu. W rezultacie kompilator generuje kod równoważny poniższej klasie domknięcia:
 
-```c++
+```cpp
 struct UnnamedClosureClass
 {
     template <typename T1, typename T2>
@@ -289,7 +289,7 @@ auto lambda = UnnamedClosureClass();
 
 Upraszcza to implementację wielu wyrażeń lambda:
 
-```c++
+```cpp
 std::vector<std::shared_ptr<Gadget>> gadgets;
 
 //...
@@ -304,7 +304,7 @@ C++14 umożliwia zainicjowanie przechwyconej zmiennej dowolnym wyrażeniem.
 
 Umożliwia to przechwycenie zewnętrznej zmiennej, która nie jest kopiowalna, ale jest transferowalna (*move only*).
 
-```c++
+```cpp
 std::unique_ptr<Gadget> g = std::make_unique<Gadget>("mp3 player");
 
 auto lambda = [gadget = std::move(g)] { std::cout << gadget->id() << std::endl; };
@@ -314,7 +314,7 @@ auto lambda = [gadget = std::move(g)] { std::cout << gadget->id() << std::endl; 
 
 W C++14 reguły dotyczące dedukcji zwracanego typu z lambdy zostały znacznie poluzowane. Automatyczna dedukcja jest realizowana również w sytuacji, gdy implementacja zawiera wiele instrukcji `return` o ile zwracają one dane tego samego typu.
 
-```c++
+```cpp
 auto it = partition(cont.begin(), cont.end(), 
                     [](const auto& value) {
                         if (value % 5 == 0) return true;
@@ -327,7 +327,7 @@ auto it = partition(cont.begin(), cont.end(),
 
 Lambdy mogą przyjmować inne lambdy jako parametry, tworząc funkcje wyższego rzędu:
 
-```c++
+```cpp
 auto add = [](int x) {
     return [x](int y) { return x + y; };
 };

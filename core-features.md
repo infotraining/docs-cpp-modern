@@ -42,7 +42,7 @@ Nowe słowo kluczowe - `nullptr`
 - bardziej czytelny i bezpieczniejszy odpowiednik stałej `NULL/0`
 - posiada zdefiniowany przez standard typ - `std::nullptr_t` (zdefiniowany w pliku nagłówkowym `<cstddef>`)
 
-```c++
+```cpp
 namespace std
 {
     typedef decltype(nullptr) nullptr_t;
@@ -51,7 +51,7 @@ namespace std
 
 Deklaracja pustych zmiennych wskaźnikowych od C++11 powinna wyglądać:
 
-```c++
+```cpp
 int* ptr_1 = nullptr; 
 assert(ptr_1 == nullptr);
 
@@ -63,7 +63,7 @@ assert(ptr_2 == nullptr);
 
 `nullptr` rozwiązuje problem z przeciążeniem funkcji przyjmujących jako argument wskaźnik lub typ całkowity:
 
-```c++
+```cpp
 void foo(int);
 
 foo(0); // calls foo(int)
@@ -85,14 +85,14 @@ W C++11 możemy uniknąć specjalnego traktowania "znaków ucieczki" (*escape ch
 
 "Raw string" zaczyna się od `R"(`, a kończy się `)"`.
 
-```c++
+```cpp
 std::string no_newlines = R"(\n\n)";
 std::string cmd{R"(cd "C:\new folder\text")"};
 ```
 
 Literały tekstowe mogą zawierać teraz kilka lini:
 
-```c++
+```cpp
 std::string with_newlines = R"(Line 1 of text...
 Line 2...
 Line 3)";
@@ -102,7 +102,7 @@ Aby mieć możliwość umieszczenia sekwencji `)"` w literale "raw string", nale
 
 - sekwencja przestankowa może mieć długość do 16 znaków i nie może zawierać białych znaków (spacji itp.).
 
-```c++
+```cpp
 std::string str1 = R"raw(a\
 b\nc()"
 )raw";
@@ -112,7 +112,7 @@ std::string str2 = "a\\\n    b\\nc()\"\n    ";
 
 Literały "raw string" są szczególnie przydatne przy definiowaniu wyrażeń regularnych lub ścieżek w systemie Windows.
 
-```c++
+```cpp
 std::regex re1( R"!("operator\(\)"|"operator->")!" );  // "operator()"|"operator->"
 ```
 
@@ -124,7 +124,7 @@ Od C++11 dozwolone są następujące literały znakowe:
 - `u` - definiuje literał ze znakami `char16_t`
 - `U` - definiuje literał ze znakami `char32_t`
 
-```c++
+```cpp
 u"UTF-16 string literal"  // char16_t (UTF-16)
 U"UTF-32 string literal"  // char32_t (UTF-32)
 u8"UTF-8 string literal"  // char (UTF-8)
@@ -132,7 +132,7 @@ u8"UTF-8 string literal"  // char (UTF-8)
 
 Kody znaków są podawane w postaci `\unnnn` oraz `\Unnnnnnnn`:
 
-```c++
+```cpp
 u8"G clef: \U0001D11E"
 u"Euro: \u0024"
 U"Skull and bones: \u2620"
@@ -153,7 +153,7 @@ Dla typów wyliczeniowych można od C++11 specyfikować typ całkowity, na któr
 
 Wartości podawane w wyliczeniu muszą mieścić się w dozwolonym zakresie dla typu.
 
-```c++
+```cpp
 enum Coffee : std::uint_8_t { espresso, cappucino, latte };
 
 enum State : unsigned char { opened, closed, unknown = 999 }; // error!
@@ -161,7 +161,7 @@ enum State : unsigned char { opened, closed, unknown = 999 }; // error!
 
 Typ na bazie którego definiowane jest wyliczenie jest dostępny za pomocą metafunkcji `std::underlying_type_t<EnumType>`:
 
-```c++
+```cpp
 #include <type_traits>
 
 using namespace std;
@@ -181,7 +181,7 @@ int main()
 
 Funkcja `std::underlying_type_t<Enum>` zwraca typ całkowity, na którym zdefiniowane jest wyliczenie.
 
-```c++
+```cpp
 enum Color : uint8_t { red, green, blue };
 
 std::underlying_type_t<Color> int_value = green; // int_value : uint8_t
@@ -191,13 +191,13 @@ asssert(int_value == 1);
 ````{note}
 W C++23 wprowadzono funkcję `std::to_underlying`, która zwraca wartość wyliczenia w postaci typu całkowitego.
 
-```c++
+```cpp
 auto int_value = std::to_underlying(Color::green); // int_value : uint8_t
 ```
 
 Jej implementacja jest bardzo prosta:
 
-```c++
+```cpp
 template <typename Enum>
 constexpr auto to_underlying(Enum e) noexcept
 {
@@ -217,7 +217,7 @@ Dla wyliczeń silnie typizowanych (*scoped enums*):
 - wartości wyliczenia są umieszczone w zakresie typu
 - istnieje możliwość użycia deklaracji zapowiadającej (*forward declaration*). Gdy używany jest tylko typ nie ma potrzeby rekompilacji przy dodaniu nowej wartości dla wyliczenia.
 
-```c++
+```cpp
 enum class Engine : uint8_t;  // forward declaration
 
 Engine e;
@@ -249,7 +249,7 @@ Deklaracje zmiennych z użyciem słowa kluczowego `auto` umożliwiają automatyc
 - w poprzednich standardach oznaczało zmienną automatyczną (tworzoną na stosie) - praktycznie nigdy nie było używane
 ```
 
-```c++
+```cpp
 auto i = 42; // i : int
 
 auto f = 3.14f; // f : float
@@ -261,7 +261,7 @@ auto const_it = spellcheck.cbegin(); // const_it : std::set<std::string>::const_
 
 Definiując zmienną z użyciem `auto` można dodawać modyfikatory `const`, `volatile` oraz stosować referencje lub wskaźniki:
 
-```c++
+```cpp
 auto i = 10; // i : int
 const auto* ptr1 = &i; // ptr1 : const int*
 const auto ptr2 = &i; // ptr2 : int* const
@@ -279,7 +279,7 @@ Używając `auto` można wygodnie iterować po kontenerach zlecając kompilatoro
 
 Aby uzyskać w trakcie iteracji `const_iterator` należy użyć nowych metod z interfejsu kontenerów standardowych `cbegin()` i `cend()`.
 
-```c++
+```cpp
 void do_something(int& x);
 void print(const int& x);
 
@@ -300,7 +300,7 @@ for(auto it = vec.cbegin(); it != vec.cend(); ++it)
 
 Mechanizm dedukcji typu dla `auto` jest praktycznie taki sam jak dla parametrów szablonu.
 
-```c++
+```cpp
 template <typename T> void f(ParamType t);
 
 f(expr); // dedukcja typu t na podstawie wyrażenia
@@ -317,7 +317,7 @@ Możemy wyróżnić trzy zasadnicze przypadki:
     - ignorowane są modyfikatory `const` i `volatile`
     - tablice i funkcje rozpadają się do wskaźników (*decay to pointers*)
 
-    ```c++
+    ```cpp
     int x = 42;
     const int cx = 665;
     int& ref_x = x;
@@ -340,7 +340,7 @@ Możemy wyróżnić trzy zasadnicze przypadki:
     - zachowywane są referencje oraz modyfikatory `const` i `volatile`
     - tablice i funkcje nie rozpadają się do wskaźników
 
-    ```c++
+    ```cpp
     int x = 42;
     const int cx = 665;
     int& ref_x = x;
@@ -363,7 +363,7 @@ Możemy wyróżnić trzy zasadnicze przypadki:
     - jeśli wyrażenie inicjujące jest `l-value` następuje dedukcja to referencji `l-value`
     - jeśli wyrażenie inicjujące jest `r-value` następuje dedukcja to referencji `r-value`
 
-    ```c++
+    ```cpp
     int x = 42;
 
     auto&& ax1 = x;   // ax1 : int&
@@ -375,7 +375,7 @@ Możemy wyróżnić trzy zasadnicze przypadki:
 Jedyna różnica między mechanizmem dedukcji typu w szablonach a w `auto` dotyczy  
 dedukcji typu z listy inicjalizacyjnej zdefiniowanej za pomocą nawiasów klamrowych `{ 1, 2, 3 }`.
 
-```c++
+```cpp
 auto items = { 1, 2, 3 }; // items : std::initializer_list<int>
 ```
 ````
@@ -392,7 +392,7 @@ Dozwolone są dwie składnie inicjalizacji:
 
 - składnia kopiująca - `auto var2 = expr;`
 
-```c++
+```cpp
 // direct initialization syntax
 int i = 10;
 auto a = i;
@@ -407,7 +407,7 @@ auto d = {i}; // d : compiler error since C++17
 ````{note}
 Jeśli typ dedukowany ma konstruktor kopiujący zdefiniowany jako `explicit`, to kompiluje się tylko składnia bezpośrednia.
 
-```c++
+```cpp
 // copy initialization syntax
 struct Expl
 {
@@ -427,7 +427,7 @@ Pętla *range-based for* iteruje po wszystkich elementach zakresu.
 
 Wyrażenie
 
-```c++
+```cpp
 for(for-range-declaration : for-range-initializer)
 {
     statement;
@@ -436,7 +436,7 @@ for(for-range-declaration : for-range-initializer)
 
 jest rozwijane do pętli:
 
-```c++
+```cpp
 {
     auto &&__range = for-range-initializer;
     auto __begin = begin-expr ;
@@ -457,7 +457,7 @@ W praktyce pętla *range-based for* umożliwia wygodną iterację po:
 
 - kontenerach standardowych:
 
-```c++
+```cpp
 std::vector<int> vec = { 1, 2, 3, 4 };
 
 for(const int& item : vec)
@@ -466,7 +466,7 @@ for(const int& item : vec)
 
 - tablicach typu *C-style*
 
-```c++
+```cpp
 int data[4] = { 1, 2, 3, 4 };
 
 for(auto& n : data)
@@ -475,7 +475,7 @@ for(auto& n : data)
 
 - liście inicjalizacyjnej
 
-```c++
+```cpp
 for(const auto& item : { 100, 200, 300, 400})
     std::cout << item << " ";
 ```
@@ -484,7 +484,7 @@ for(const auto& item : { 100, 200, 300, 400})
 
 Kopiowanie elementów w trakcie iteracji może obniżyć wydajność (np. dla typów `std::string`, `std::shared_ptr`) lub może być zabronione np. `std::unique_ptr`. Można uniknąć kopiowania elementów w trakcie iteracji dodając referencję. Opcjonalnie można również stosować modyfikator `const` lub `volatile`.
 
-```c++
+```cpp
 std::vector<std::shared_ptr<Gadget>> shared_gadgets;
 // ...
 
@@ -492,7 +492,7 @@ for(const auto& ptr : shared_gadgets)
     ptr->do_something();
 ```
 
-```c++
+```cpp
 std::vector<std::unique_ptr<Gadget>> unique_gadgets;
 // ...
 
@@ -513,7 +513,7 @@ W bibliotece standardowej C++ są zdefiniowane dla:
   
   * kontenerów standardowych
 
-    ```c++
+    ```cpp
     namespace std
     {
         template <typename Container>
@@ -532,7 +532,7 @@ W bibliotece standardowej C++ są zdefiniowane dla:
 
   * tablic natywnych
 
-    ```c++
+    ```cpp
     template <typename T, size_t N>
     T* begin(T (&array)[N])
     {
@@ -551,7 +551,7 @@ Możliwe jest również zdefiniowanie własnych funkcji `begin()` i `end()` dla 
 ````{tip}
 Pisząc kod generyczny dla kontenerów warto zawsze używać `std::begin()` i `std::end()`.
 
-```c++
+```cpp
 template <typename TContainer, typename TValue>
 auto find_value(TContainer& cont, const TValue& value)
 {
@@ -567,7 +567,7 @@ auto find_value(TContainer& cont, const TValue& value)
 
 Iteracja po kontenerach zdefiniowanych przez użytkownika wymaga zdefiniowania odpowiednich funkcji składowych `begin()` i `end()`.
 
-```c++
+```cpp
 struct SomeContainer
 {
     int data[5] = { 1, 2, 3, 4, 5 };
@@ -591,7 +591,7 @@ assert(*pos_of_3 == 3);
 
 Można też utworzyć własne implementacje funkcji `begin()` i `end()` adaptując struktury danych, które nie posiadają tych metod.
 
-```c++
+```cpp
 namespace Custom
 {
     struct OtherContainer
@@ -619,7 +619,7 @@ Motywacją dla wprowadzenia składni jednolitej inicjalizacji, był fakt, że in
 
 Przykłady problemów w C++98:
 
-```c++
+```cpp
 int i; // undefined value
 
 int var1(5); // "direct initialization" - from C++98
@@ -654,7 +654,7 @@ Składnia jednolitej inicjalizacji jest rozszerzeniem standardu. Prawie cały ko
 
 Składnia inicjalizacji z wykorzystaniem nawiasów klamrowych jest teraz dozwolona we wszystkich przypadkach:
 
-```c++
+```cpp
 int i; // undefined value - still possible!!!
 
 int var1{5};
@@ -672,7 +672,7 @@ std::map<int, std::string> = { {1, "one"}, {2, "two"} };
 
 Składni z klamrami można używać do inicjalizacji pól na liście inicjalizacyjnej konstruktora oraz do inicjalizacji tablic dynamicznych.
 
-```c++
+```cpp
 class Data
 {
     static inline int id_gen_{0};
@@ -693,7 +693,7 @@ int* buffer = new int[5] { 1, 5, var1, var2 + 10, -1 };
 
 Inicjalizacja agregatów za pomocą klamer przebiega dokładnie w ten sam sposób jak w C++98 i powoduje inicjalizację składowych wg kolejności ich definicji w agregacie. Liczba elementów na liście musi być równa lub mniejsza ilości elementów w agregacie.
 
-```c++
+```cpp
 std::array<int, 3> arr1 = {}; // [0, 0, 0]
 std::array<int, 3> arr2 = { 1, 2 }; // [1, 2, 0]
 std::array<int, 3> arr3 = { 1, 2, 3 }; // [1, 2, 3]
@@ -704,7 +704,7 @@ std::array<int, 3> arr4 = { 1, 2, 3, 4 }; // error
 
 Inicjalizacja {} klas/struktur nie będących agregatami powoduje wywołanie odpowiedniego konstruktora.
 
-```c++
+```cpp
 class Vector2D
 {
 public:
@@ -726,7 +726,7 @@ Vector2D versor_x()
 
 Składnia "kopiująca" `T variable = expr` nie może wywołać konstruktora zdefiniowanego jako `explicit`:
 
-```c++
+```cpp
 std::unique_ptr<int> ptr1 = { new int{10} }; // error
 std::unique_ptr<int> ptr2 { new int{12} }; // OK
 ```
@@ -735,7 +735,7 @@ std::unique_ptr<int> ptr2 { new int{12} }; // OK
 
 C++11 nie zezwala na użycie w inicjalizacji klamrowej niejawnej konwersji, która może doprowadzić do zawężenia typu.
 
-```c++
+```cpp
 int arr1[] = { 1, 2, 4.5 }; // OK in C++98; error in C++11
 
 int arr2[] = { 1, 2, static_cast<int>(4.5) }; // OK both in C++98 and C++11
@@ -748,7 +748,7 @@ Vector2D vec2{4, 5.5}; // error - implicit narrowing
 
 Aby umożliwić inicjalizację kontenerów standardowych za pomocą składni z nawiasami klamrowymi C++11 wprowadza nowy typ - `std::initializer_list`.
 
-```c++
+```cpp
 std::vector<int> v{1, 2, 3};  // creates vector with items: [1, 2, 3]
 
 v.insert(v.end(), { 99, 22, 11, 22, -1 });
@@ -768,7 +768,7 @@ v = { 1, 2, 3, 5 };
 
 Jako argument funkcji `std::initializer_list` powinien być przesyłany przez wartość:
 
-```c++
+```cpp
 #include <initializer_list>
 
 void show_items(std::initializer_list<int> args)
@@ -782,7 +782,7 @@ show_items({1, 2, 3, 4, 5, 6, 7 });
 
 Przykład użycia `initializer_list` w konstruktorze klasy:
 
-```c++
+```cpp
 template<typename T>
 class Container
 {
@@ -841,7 +841,7 @@ Container<int> c3 { 1, 2, 3.5 }; // error - template parameter T can't be deduce
 
 Jeśli klasa posiada wiele wersji konstruktora, przy wywołaniu konstruktora poprzez nawiasy klamrowe preferowany jest konstruktor z `std::initializer_list`.
 
-```c++
+```cpp
 class Gadget
 {
 public:
@@ -879,7 +879,7 @@ Reguła wywołań konstruktorów:
 
 `std::initializer_list` jest jedynym wyjątkiem różniącym dedukcję typów `auto` od dedukcji typów w szablonach:
 
-```c++
+```cpp
 auto items = { 1, 2, 4, 5 }; // items is std::initializer_list<int>
 
 template <typename T>
@@ -895,7 +895,7 @@ foo({ 1, 2, 3, 4, 5 }); // error - deduction failed
 
 Słowo kluczowe `decltype` umożliwia kompilatorowi określenie typu dla podanego jako argument obiektu lub wyrażenia.
 
-```c++
+```cpp
 std::map<std::string, double> math_dict = { {"pi", 3.14}, {"e", 2.71} };
 
 decltype(math_dict) other_dict; // other_dict has the same type as math_dict
@@ -906,7 +906,7 @@ static_assert(std::is_same_v<TEntry, std::pair<const std::string, double>>);
 
 Jeżeli podajemy jako argument wywołania `decltype()` wyrażenie, to nie jest ono ewaluowane.
 
-```c++
+```cpp
 std::map<int, std::string> dict_numbers;
 
 std::cout << "sizeof: " << sizeof(decltype(dict_numbers[0])) << "\n"; // prints 8
@@ -922,7 +922,7 @@ Nowa alternatywna składnia deklaracji funkcji pozwala deklarować typ zwracany 
 
 Pozwala to na specyfikację zwracanego typu wewnątrz funkcji oraz z użyciem argumentów funkcji.
 
-```c++
+```cpp
 int multiply(int a, int b);
 
 auto multiply(int a, int b) -> int;
@@ -930,7 +930,7 @@ auto multiply(int a, int b) -> int;
 
 W połączeniu z `decltype` umożliwia specyfikację typu na podstawie wyrażenia wykorzystującego argumenty funkcji:
 
-```c++
+```cpp
 template <typename T1, typename T2>
 auto multiply(T1 a, T2 b) -> decltype(a * b)
 {
@@ -944,7 +944,7 @@ auto multiply(T1 a, T2 b) -> decltype(a * b)
 
 W C++14 typ zwracany z funkcji może być automatycznie dedukowany z implementacji funkcji. Mechanizm dedukcji jest taki sam jak mechanizm automatycznej dedukcji typów zmiennych.
 
-```c++
+```cpp
 auto multiply(int x, int y)
 {
     return x * y;
@@ -953,7 +953,7 @@ auto multiply(int x, int y)
 
 Jeśli w funkcji występuje wiele instrukcji `return` muszą one wszystkie zwracać wartości tego samego typu.
 
-```c++
+```cpp
 auto get_name(int id)
 {
     if (id == 1)
@@ -966,7 +966,7 @@ auto get_name(int id)
 
 Rekurencja dla funkcji z `auto` jest możliwa, o ile rekurencyjne wywołanie następuje po przynajmniej jednym wywołaniu `return` zwracającego wartość nierekurencyjną.
 
-```c++
+```cpp
 auto factorial(int n)
 {
     if (n == 1)
@@ -979,7 +979,7 @@ auto factorial(int n)
 
 Deklaracja `decltype(auto)` jako typu zwracanego z funkcji powoduje zastosowanie do dedukcji typu mechanizmu `decltype` (zachowującego referencje i modyfikatory `const` oraz `volatile`) zamiast mechanizmu `auto`.
 
-```c++
+```cpp
 template<class Fun, class... Args>
 decltype(auto) call_wrapper(Fun fun, Args&&... args) 
 { 
@@ -989,7 +989,7 @@ decltype(auto) call_wrapper(Fun fun, Args&&... args)
 
 Mechanizm `decltype` może być również używany do deklaracji zmiennych:
 
-```c++
+```cpp
 int i;
 int&& f();
 
@@ -1001,7 +1001,7 @@ auto a3 = f();            // a3: int
 decltype(f()) d3 = f();   // d3: int&&
 ```
 
-```c++
+```cpp
 struct Gadget { uint32_t id; };
 
 Gadget g{42};
@@ -1024,7 +1024,7 @@ Do realizacji wiązania mogą być użyte:
 
 1. Wszystkie elementy tablicy
 
-    ```c++
+    ```cpp
     auto& get_coord() 
     {
         static int coords[2] = {1, 2};
@@ -1038,7 +1038,7 @@ Do realizacji wiązania mogą być użyte:
 
     - std::tuple
 
-        ```c++
+        ```cpp
         std::tuple<std::string, std::string, int> tpl("John", "Doe", 42);
 
         auto [first_name, last_name, age] = tpl;
@@ -1048,7 +1048,7 @@ Do realizacji wiązania mogą być użyte:
 
     - std::pair
 
-        ```c++
+        ```cpp
         std::set<int> unique_numbers = {1, 2, 3, 4, 5};
 
         auto [pos, was_inserted] = unique_numbers.insert(42);
@@ -1057,7 +1057,7 @@ Do realizacji wiązania mogą być użyte:
 
     - std::array
 
-        ```c++
+        ```cpp
         std::array<int, 3> get_coord_3D();
 
         auto [x, y, z] = get_coord_3D();
@@ -1072,7 +1072,7 @@ Do realizacji wiązania mogą być użyte:
     - wszystkie składowe muszą być publiczne i być bezpośrednio zdefiniowane w klasie/strukturze wiązanego obiektu lub w jego klasie bazowej
     - anonimowe unie nie są dozwolone
 
-    ```c++
+    ```cpp
     struct Person
     {
         std::string fn;
@@ -1097,7 +1097,7 @@ Mechanizm działania wiązania *structured binding* wykorzystuje nową (anonimow
 
 Kod wiązania:
 
-```c++
+```cpp
 struct Timestamp
 {
     int h, m, s;
@@ -1110,7 +1110,7 @@ auto [hours, minutes, seconds] = timestamp;
 
 Odpowiada koncepcyjnie:
 
-```c++
+```cpp
 auto e = timestamp;
 auto& hours = e.h;
 auto& minutes = e.m;
@@ -1123,7 +1123,7 @@ Obiekt `e` istnieje tak długo jak istnieją zdefiniowane do niego wiązania.
 
 Deklaracje *structured bindings* mogą być dekorowane kwalifikatorami w postaci referencji, modyfikatorów `const` oraz `volatile`, `alignas`, przy czym dekoracja taka dotyczy całego anonimowego obiektu:
 
-```c++
+```cpp
 int a[] = { 42, 13 };
 
 auto [x, y] = a;
@@ -1139,7 +1139,7 @@ alignas(16) auto[i, d] = foo(); // i and d refers to implicit entity, which is 1
 
 1. *Structured bindings* umożliwiają wygodną iterację po mapach w C++17:
 
-    ```c++
+    ```cpp
     std::map<std::string, double> math_dict = { { "pi", 3.14 }, { "e", 2.71 } };
     
     for(const auto& [key, value] : math_dict) 
@@ -1148,7 +1148,7 @@ alignas(16) auto[i, d] = foo(); // i and d refers to implicit entity, which is 1
 
 2. Inicjalizacja wielu wartości różnych typów na raz w instrukcji `for`:
 
-    ```c++
+    ```cpp
     std::vector vec = { 1, 2, 3 };
 
     for (auto [i, it] = std::tuple{ 0, begin(vec) } ; i < size(vec); ++i, ++it)
@@ -1163,7 +1163,7 @@ W C++17 wprowadzono dodatkową składnię dla instrukcji `if` oraz `switch` umo�
 
 Nowa (dodatkowa) składnia:
 
-```c++
+```cpp
 if (init; condition) 
 {}
 
@@ -1173,7 +1173,7 @@ switch(init; condition)
 
 W efekcie kod, który w C++98 wyglądał tak:
 
-```c++
+```cpp
 Status status = g.status();
 
 if (status == Status::bad)
@@ -1184,7 +1184,7 @@ if (status == Status::bad)
 
 możemy zastąpić bardziej zwięzłym kodem:
 
-```c++
+```cpp
 if (Status status = g.status(); status == Status::bad)
 {
     std::cerr << "Gadget is broken(status=" << static_cast<int>(status) << std::endl;        
@@ -1193,7 +1193,7 @@ if (Status status = g.status(); status == Status::bad)
 
 Przykład wykorzystania nowej wersji instrukcji `if` w pracy z muteksami:
 
-```c++
+```cpp
 if (std::lock_guard<std::mutex> lk{mtx}; !q.empty())
 {
     std::cout << q.front() << std::endl;
@@ -1202,7 +1202,7 @@ if (std::lock_guard<std::mutex> lk{mtx}; !q.empty())
 
 Instrukcja `switch` z nową składnią:
 
-```c++
+```cpp
 switch (Gadget g{2}; auto s = g.status())
 {
 case Status::on:
@@ -1223,7 +1223,7 @@ Obiekt tymczasowy utworzony na potrzeby inicjalizacji istnieje tylko w obrębie 
 
 Przykład z *bugiem*:
 
-```c++
+```cpp
 if (std::lock_guard<std::mutex>(mtx); !q.empty()) // ERROR - locks ends before ;
 {
     std::cout << q.front() << std::endl;
@@ -1232,7 +1232,7 @@ if (std::lock_guard<std::mutex>(mtx); !q.empty()) // ERROR - locks ends before ;
 
 Poprawiony kod:
 
-```c++
+```cpp
 if (std::lock_guard<std::mutex> _(mtx); !q.empty()) // OK - lock has name
 {
     std::cout << q.front() << std::endl;
@@ -1241,7 +1241,7 @@ if (std::lock_guard<std::mutex> _(mtx); !q.empty()) // OK - lock has name
 
 lub
 
-```c++
+```cpp
 if (std::lock_guard lk(mtx); !q.empty())
 {
     std::cout << q.front() << std::endl;
@@ -1252,7 +1252,7 @@ if (std::lock_guard lk(mtx); !q.empty())
 
 Instrukcja `if` z sekcją inicjującą może być połączona z przypisaniem wielu wartości do zmiennych za pomocą *structured bindings*:
 
-```c++
+```cpp
 std::map<int, std::string> dictionary;
 
 if (auto [pos, was_inserted] = dictionary.emplace(42, "fourty two"s); was_inserted)

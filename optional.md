@@ -9,7 +9,7 @@ W rezultacie nie ma potrzeby korzystać ze specjalnych znaczników pustej warto�
 
 Klasa `std::optional` wykorzystuje stałą `std::nullopt` typu `std::nullopt_t` jako specjalny znacznik oznaczający brak wartości dla obiektu.
 
-```{code-block} c++
+```{code-block} cpp
 inline constexpr nullopt_t nullopt{ /*unspecified*/ };
 ```
 
@@ -19,7 +19,7 @@ Obiekt `std::optional` może zostać skonstruowany:
 
 * w stanie be wartości:
 
-  ```{code-block} c++
+  ```{code-block} cpp
   std::optional<std::string> o1;
 
   std::optional<double> o2 = std::nullopt;       
@@ -27,7 +27,7 @@ Obiekt `std::optional` może zostać skonstruowany:
 
 * z określoną wartością
     
-  ```{code-block} c++
+  ```{code-block} cpp
   std::optional<std::string> o3 = "text";    
 
   std::optional o4{42}; // deduces optional<int>
@@ -35,7 +35,7 @@ Obiekt `std::optional` może zostać skonstruowany:
 
 * *in-place* na podstawie listy argumentów - bez konieczności tworzenia obiektu tymczasowego
 
-  ```{code-block} c++
+  ```{code-block} cpp
   std::optional<std::complex<double>> o5{std::in_place, 3.0, 4.0};      
 
   // initialize set with lambda as sorting criterion:
@@ -48,7 +48,7 @@ Obiekt `std::optional` może zostać skonstruowany:
 
 * przy pomocy funkcji pomocniczej `std::make_optional()`
 
-  ```{code-block} c++
+  ```{code-block} cpp
   auto o7 = std::make_optional(3.0); // optional<double>
   ```
 
@@ -59,7 +59,7 @@ Aby sprawdzić, czy obiekt opcjonalny przychowuje wartość możemy użyć:
 * metody `has_value()`
 * przeciążonej funkcji `operator bool`
 
-```{code-block} c++
+```{code-block} cpp
 std::optional o{42};
 
 assert(o.has_value() == true);
@@ -81,7 +81,7 @@ if (!o) // is empty
 
 Dostęp do przechowywanej wartości zapewniony jest poprzez przeciążenie operatorów dereferencji `*` oraz `*->`:
 
-```{code-block} c++
+```{code-block} cpp
 *opt_str = "other";
 assert(opt_str.value() == "other");
 assert(opt_str->length() == 5);
@@ -100,7 +100,7 @@ Bezpieczny dostęp do przechowywanej wartości może być zrealizowany poprzez m
 zwraca wartość. Jeśli jej nie ma rzuca wyjątkiem `std::bad_optional_access`
 ```
 
-```{code-block} c++
+```{code-block} cpp
 std::optional<std::string> opt_str;
 
 try
@@ -118,7 +118,7 @@ catch(const std::bad_optional_access& e)
 zwraca wartość lub jeśli jej nie ma, podaną jako argument wartość domyślną
 ```
 
-```{code-block} c++
+```{code-block} cpp
 #include <optional>
 #include <iostream>
 #include <cstdlib>
@@ -143,7 +143,7 @@ Usunięcie wartości realizowane jest za pomocą metody `reset()`.
 
 Klasa `std::optional` wspiera semantykę przenoszenia:
 
-```{code-block} c++
+```{code-block} cpp
 std::optional<std::string> os;
 
 std::string text = "text";
@@ -162,7 +162,7 @@ i wskaźników może mieć zaskakujące efekty.
 
 ### std::optional<bool>
 
-```{code-block} c++
+```{code-block} cpp
 std::optional<bool> o{false};
 
 if (!o) // yields false - o has value, which is false
@@ -177,7 +177,7 @@ if (o == false) // yields true
 
 ### std::optional<T*>
 
-```{code-block} c++
+```{code-block} cpp
 std::optional<double*> o{nullptr}; 
 
 if (!o) // yields false - o has value
@@ -195,7 +195,7 @@ if (o == nullptr) // yields true
 
 ### Opcjonalne składowe klasy
 
-```{code-block} c++
+```{code-block} cpp
 class Person
 {
     std::string first_name_;

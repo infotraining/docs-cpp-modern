@@ -6,7 +6,7 @@
 
 W C++11 deklaracja `using` może zostać użyta do tworzenia bardziej czytelnych aliasów dla typów - zamiennik dla `typedef`.
 
-```c++
+```cpp
 using CarID = int;
 
 using Func = int(*)(double, double);
@@ -18,7 +18,7 @@ using DictionaryDesc = std::map<std::string, std::string, std::greater<std::stri
 
 Aliasy typów mogą być parametryzowane typem. Można je wykorzystać do tworzenia częściowo związanych typów szablonowych.
 
-```c++
+```cpp
 template <typename T>
 using StrKeyMap = std::map<std::string, T>;
 
@@ -27,7 +27,7 @@ StrKeyMap<int> my_map; // std::map<std::string, int>
 
 Parametrem aliasu typu szablonowego może być także stała znana w czasie kompilacji:
 
-```c++
+```cpp
 template <std::size_t N>
 using StringArray = std::array<std::string, N>;
 
@@ -36,7 +36,7 @@ StringArray<255> arr1;
 
 Aliasy szablonów nie mogą być specjalizowane.
 
-```c++
+```cpp
 template <typename T>
 using MyAllocList = std::list<T, MyAllocator>;
 
@@ -46,7 +46,7 @@ using MyAllocList = std::list<T*, MyAllocator>; // error
 
 Przykład utworzenia aliasu dla szablonu klasy *smart pointer'a*:
 
-```c++
+```cpp
 template <typename Stream>
 struct StreamDeleter
 {
@@ -71,20 +71,20 @@ using StreamPtr = std::unique_ptr<Stream, StreamDeleter<Stream>>;
 
 Od C++14 biblioteka standardowa używa aliasów dla wszystkich cech typów, które zwracają typ.
 
-```c++
+```cpp
 template <typename T>
 using is_void_t = typename is_void<T>::type;
 ```
 
 W rezultacie kod odwołujący się do cechy:
 
-```c++
+```cpp
 typename is_void<T>::type
 ```
 
 możemy uprościć do:
 
-```c++
+```cpp
 is_void_t<T>;
 ```
 
@@ -92,21 +92,21 @@ is_void_t<T>;
 
 W C++14 zmienne mogą być parametryzowane przy pomocy typu. Takie zmienne nazywamy **zmiennymi szablonowymi** (*variable templates*).
 
-```c++
+```cpp
 template<typename T>
 constexpr T pi{3.1415926535897932385};
 ```
 
 Aby użyć zmiennej szablonowej, należy podać jej typ:
 
-```c++
+```cpp
 std::cout << pi<double> << '\n';
 std::cout << pi<float> << '\n';
 ```
 
 Parametrami zmiennych szablonowych mogą być stałe znane na etapie kompilacji:
 
-```c++
+```cpp
 template<int N>
 std::array<int, N> arr{};    
 
@@ -128,13 +128,13 @@ Deklaracja zmiennych szablonowych może być używana w innych jednostkach trans
 
 - plik - `header.hpp`
 
-    ```c++
+    ```cpp
     template<typename T> T val{};     // zero initialized value
     ```
 
 - plik - "unit1.cpp"
 
-    ```c++
+    ```cpp
     #include "header.hpp"
 
     int main()
@@ -146,7 +146,7 @@ Deklaracja zmiennych szablonowych może być używana w innych jednostkach trans
 
 - plik - "unit2.cpp"
 
-    ```c++
+    ```cpp
     void print()
     {
         std::cout << val<long> << '\n'; // OK: prints 42
@@ -163,7 +163,7 @@ W C++11 szablony mogą akceptować dowolną ilość (również zero) parametrów
 
 - grupą parametrów szablonu
 
-    ```c++
+    ```cpp
     template<typename... Ts> // template parameter pack
     class tuple
     {
@@ -176,7 +176,7 @@ W C++11 szablony mogą akceptować dowolną ilość (również zero) parametrów
 
 - grupą argumentów funkcji szablonowej
 
-    ```c++
+    ```cpp
     template <typename T, typename... Args>
     shared_ptr<T> make_shared(Args&&... params)
     {
@@ -191,7 +191,7 @@ W C++11 szablony mogą akceptować dowolną ilość (również zero) parametrów
 
 Podstawową operacją wykonywaną na grupie parametrów szablonu jest rozpakowanie jej za pomocą operatora `...` (tzw. *pack expansion*).
 
-```c++
+```cpp
 template <typaname... Ts>  // template  parameter pack
 struct X
 {
@@ -201,7 +201,7 @@ struct X
 
 Rozpakowanie paczki parametrów (*pack expansion*) może zostać zrealizowane przy pomocy wzorca zakończonego elipsą `...`:
 
-```c++
+```cpp
 template <typaname... Ts>  // template  parameter pack
 struct XPtrs
 {
@@ -213,7 +213,7 @@ XPtrs<int, string, double> ptrs; // contains tuple<int const*, string const*, do
 
 Najczęstszym przypadkiem użycia wzorca przy rozpakowaniu paczki parametrów jest implementacja **perfect forwarding'u**:
 
-```c++
+```cpp
 template <typename... Args>
 void make_call(Args&&... params)
 {
@@ -231,7 +231,7 @@ W implementacji wykorzystany jest parametr (lub argument) typu `Head`, po czym r
 
 Dla szablonów klas idiom wykorzystuje specjalizację częściową i szczegółową (do przerwania rekurencji):
 
-```c++
+```cpp
 template <typename... Types>
 struct Count;
 
@@ -253,7 +253,7 @@ static_assert(Count<int, double, string&>::value == 3, "must be 3");
 
 W przypadku szablonów funkcji rekurencja może być przerwana przez dostarczenie odpowiednio przeciążonej funkcji. Zostanie ona w odpowiednim momencie rozwijania rekurencji wywołana.
 
-```c++
+```cpp
 void print()
 {}
 
@@ -269,7 +269,7 @@ void print(const T& arg1, const Tail&... params)
 
 Operator `sizeof...` umożliwia odczytanie na etapie kompilacji ilości parametrów w grupie.
 
-```c++
+```cpp
 template <typename... Types>
 struct VerifyCount
 {
@@ -282,7 +282,7 @@ struct VerifyCount
 
 **Variadic templates** są niezwykle przydatne do forwardowania wywołań funkcji.
 
-```c++
+```cpp
 template <typename T, typename... Args>
 std::unique_ptr<T> make_unique(Args&&... params)
 {
@@ -294,14 +294,14 @@ std::unique_ptr<T> make_unique(Args&&... params)
 
 Klasa szablonowa może mieć tylko jedną paczkę parametrów i musi ona zostać umieszczona na końcu listy parametrów szablonu:
 
-```c++
+```cpp
 template <size_t... Indexes, typename... Ts>  // error
 class Error;
 ```
 
 Można obejść to ograniczenie w następujący sposób:
 
-```c++
+```cpp
 template <size_t... Indexes> struct IndexSequence {};
 
 template <typename Indexes, typename Ts...>
@@ -312,7 +312,7 @@ Ok<IndexSequence<1, 2, 3>, int, char, double> ok;
 
 Funkcje szablonowe mogą mieć więcej paczek parametrów:
 
-```c++
+```cpp
 template <int... Factors, typename... Ts>
 void scale_and_print(const Ts&... args)
 {
@@ -324,7 +324,7 @@ scale_and_print<1, 2, 3>(3.14, 2, 3.0f);  // calls print(1 * 3.14, 2 * 2, 3 * 3.
 
 **Uwaga!** Wszystkie paczki w tym samym wyrażeniu rozpakowującym muszą mieć taki sam rozmiar.
 
-```c++
+```cpp
 scale_and_print<1, 2>(3.14, 2, 3.0f);  // error
 ```
 
@@ -332,7 +332,7 @@ scale_and_print<1, 2>(3.14, 2, 3.0f);  // error
 
 - Podobnie jak w przypadku innych parametrów szablonów, paczka parametrów nie musi być paczką typów, lecz może być paczką stałych znanych na etapie kompilacji
 
-```c++
+```cpp
 template <size_t... Values>
 struct MaxValue;  // primary template declaration
 
@@ -350,7 +350,7 @@ struct MaxValue<Last>
 };
 ```
 
-```c++
+```cpp
 static_assert(MaxValue<1, 5345, 3, 453, 645, 13>::value == 5345, "Error");
 ```
 
@@ -392,7 +392,7 @@ Redukcja listy [1, 2, 3, 4, 5] z użyciem operatora (+):
 
 W C++ redukcja jest obecna poprzez implementację algorytmu `std::accumulate`.
 
-```c++
+```cpp
 #include <vector>
 #include <numeric>
 #include <string>
@@ -412,7 +412,7 @@ Wyrażenia typu *fold* umożliwiają uproszczenie rekurencyjnych implementacji d
 
 Przykład z wariadyczną funkcją `sum(1, 2, 3, 4, 5)` z wykorzystaniem *fold expressions* może być w C++17 zaimplementowany następująco:
 
-```c++
+```cpp
 template <typename... Args>
 auto sum(Args&&... args)
 {
@@ -420,7 +420,7 @@ auto sum(Args&&... args)
 }
 ```
 
-```c++
+```cpp
 sum(1, 2, 3, 4, 5);
 ```
 
@@ -456,7 +456,7 @@ który jest rozwijany do postaci $(e_1 \otimes ( \dotso (e_n \otimes a)))$
 
 Operatorem $\otimes$ może być jeden z poniższych operatorów C++:
 
-```c++
+```cpp
 +  -  *  /  %  ^  &  |  ~  =  <  >  <<  >>
 +=  -=  *=  /=  %=  ^=  &=  |=  <<=  >>=
 ==  !=  <=  >=  &&  ||  ,  .*  ->*
@@ -481,7 +481,7 @@ Jeśli operacja fold jest ewaluowana dla pustej paczki parametrów dla innego op
 
 * Wariadyczna funkcja przyjmująca dowolną liczbę argumentów konwertowalnych do wartości logicznych i zwracająca ich iloczyn logiczny (`operator &&`):
 
-```c++
+```cpp
 template <typename... Args>
 bool all_true(Args... args)
 {
@@ -489,7 +489,7 @@ bool all_true(Args... args)
 }
 ```
 
-```c++
+```cpp
 bool result = all_true(true, true, false, true);
 ```
 
@@ -497,7 +497,7 @@ bool result = all_true(true, true, false, true);
 
 * Funkcja `print()` wypisująca przekazane argumenty. Implementacja wykorzystuje wyrażenie *binary left fold* dla operatora `<<`:
 
-```c++
+```cpp
 #include <iostream>
 
 template <typename... Args>
@@ -507,7 +507,7 @@ void print(Args&&... args)
 }
 ```
 
-```c++
+```cpp
 print(1, 2, 3, 4);
 ```
 
@@ -515,7 +515,7 @@ print(1, 2, 3, 4);
 
 Implementacja wariadycznej wersji algorytmu `foreach()` z wykorzystaniem funkcji `std::invoke()`:
 
-```c++
+```cpp
 #include <iostream>
 
 template <typename F, typename... Args>
@@ -529,7 +529,7 @@ auto call_foreach = [](auto&& fun, auto&&... args) {
 };
 ```
 
-```c++
+```cpp
 #include <string>    
 
 using namespace std::literals;
