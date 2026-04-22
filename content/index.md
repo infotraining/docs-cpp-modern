@@ -2,4 +2,7 @@
 title: Nowoczesne programowanie w C++
 --- -->
 
-![Modern C++ Programming](/images/modern-cpp-cover.png)
+```{image} ./images/modern-cpp-cover.png
+:alt: Modern C++ Programming
+:align: center
+```
