@@ -220,7 +220,7 @@ constexpr auto result = sum(data); // result = 15: evaluated at compile time
 
 Od C++17 wyrażenia lambda są traktowane domyślnie jako wyrażenia `constexpr` (jeśli jest to możliwe). Można explicite zastosować również słowo kluczowe `constexpr` w definicji lambdy.
 
-```c++
+```cpp
 auto square = [](auto x) { return x * x; } // implicitly consexpr
 
 std::array<int, square(8)> data{}; // OK - data: std::array<int, 64>
@@ -234,7 +234,7 @@ Jeśli w definicji wyrażenia lambda nie są spełnione wymagania dla wyrażeń 
 
 - domyślnie przyjmie, że definicja lambdy nie jest `constexpr`
 
-    ```c++
+    ```cpp
     auto is_even = [](int x) { 
         static size_t counter = 0;
         counter++;
@@ -245,7 +245,7 @@ Jeśli w definicji wyrażenia lambda nie są spełnione wymagania dla wyrażeń 
 
 - lub w przypadku jawnej deklaracji `constexpr` zgłosi błąd kompilacji
 
-    ```c++
+    ```cpp
     auto is_even = [](int x) constexpr { 
         static size_t counter = 0;
         counter++;
