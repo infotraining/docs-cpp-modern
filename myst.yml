@@ -3,6 +3,7 @@ project:
   title: Nowoczesne programowanie w C++
   authors:
     - name: Krystian Piękoś - Infotraining
+  copyright: '2026'
   exports:
     - format: pdf
       template: plain_latex_book
